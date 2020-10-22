@@ -2,17 +2,17 @@ within RankineCycle;
 model RankineCycle82 "The Simple Rankine Cycle"
   parameter Units.Pressure boiler_ouelet_p=8;
   // Variables
- Boiler_ph boiler(
+ Components.Boiler_ph boiler(
     x_out=1,
     p_out=boiler_ouelet_p,
     x_flow_out=1)
     annotation (Placement(transformation(extent={{-94,14},{-52,56}})));
-     Turbine_ph turbine_ph(p_out=0.008, ef=85)
+  Components.Turbine_ph turbine_ph(p_out=0.008, ef=85)
     annotation (Placement(transformation(extent={{34,30},{78,84}})));
-  Pump_ph pump_ph(p_out=8, ef=85)
+  Components.Pump_ph pump_ph(p_out=8, ef=85)
     annotation (Placement(transformation(extent={{-60,-88},{-40,-68}})));
 
-  Condenser_ph condenser_ph(p_out=0.008, x_out=0.0)
+  Components.Condenser_ph condenser_ph(p_out=0.008, x_out=0.0)
     annotation (Placement(transformation(extent={{56,-48},{98,-6}})));
   Units.WorkUnitMass totalworkExtracted,totalworkRequired,netpoweroutput;
   Units.HeatUnitMass totalheatAdded;

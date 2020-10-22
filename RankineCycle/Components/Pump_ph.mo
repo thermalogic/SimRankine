@@ -1,4 +1,4 @@
-within RankineCycle;
+within RankineCycle.Components;
 model Pump_ph
   import Modelica.Media.Water.IF97_Utilities.h_ps;
   import Modelica.Media.Water.IF97_Utilities.s_ph;

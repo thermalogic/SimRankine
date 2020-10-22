@@ -1,8 +1,5 @@
 FluidPort
 Units
-Boiler_ph
-Turbine_ph
-Condenser_ph
-Pump_ph
+Components
 RankineCycle81
 RankineCycle82

@@ -1,4 +1,4 @@
-within RankineCycle;
+within RankineCycle.Components;
 model Boiler_ph "Boiler of Rankine Cycle"
   import Modelica.Media.Water.IF97_Utilities.hv_p;
   import Modelica.Media.Water.IF97_Utilities.h_pT;

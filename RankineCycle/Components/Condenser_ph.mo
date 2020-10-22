@@ -1,4 +1,4 @@
-within RankineCycle;
+within RankineCycle.Components;
 model Condenser_ph
   import Modelica.Media.Water.IF97_Utilities.hl_p;
   parameter Units.Pressure p_out;
