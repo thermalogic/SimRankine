@@ -1,10 +1,9 @@
 within RankineCycle;
 model RankineCycle81 "The Simple Rankine Cycle"
-  parameter Units.Pressure boiler_ouelet_p=8;
-  // Variables
+   // Variables
  Components.Boiler_ph boiler(
     x_out=1,
-    p_out=boiler_ouelet_p,
+    p_out=8,
     x_flow_out=1)
     annotation (Placement(transformation(extent={{-94,14},{-52,56}})));
  Components.Turbine_ph turbine_ph(p_out=0.008, ef=100)
