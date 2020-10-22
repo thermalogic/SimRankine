@@ -1,9 +1,10 @@
 within RankineCycle;
 model Pump_ph
   import Modelica.Media.Water.IF97_Utilities.h_ps;
+  import Modelica.Media.Water.IF97_Utilities.s_ph;
   import Modelica.Media.Water.IF97_Utilities.BaseIF97.Regions.sl_p;
   parameter Units.Pressure p_out;
-  parameter Real ef;
+  parameter Units.Efficiency ef;
   Units.WorkUnitMass w;
   Real outlet_s,outlet_h_s;
   FluidPort.FluidPortOutPH outlet annotation (Placement(transformation(
@@ -14,9 +15,10 @@ model Pump_ph
 equation
   outlet.p=p_out;
   outlet.x_flow=inlet.x_flow;
-  outlet_s= sl_p(inlet.p*1.0e6)*1.0e-3;
+
+  outlet_s =s_ph(inlet.p*1.0e6, inlet.h*1.0e3)*1.0e-3;
   outlet_h_s =h_ps(outlet.p*1.0e6, outlet_s*1.0e3)*1.0e-3;
-  outlet.h = inlet.h + (outlet_h_s - inlet.h)/ef;
+  outlet.h = inlet.h + (outlet_h_s - inlet.h)/(ef*0.01);
   w=inlet.x_flow * ( outlet.h - inlet.h);
 
   annotation (Icon(coordinateSystem(initialScale=0.1), graphics={

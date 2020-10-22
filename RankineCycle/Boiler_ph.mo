@@ -1,8 +1,9 @@
 within RankineCycle;
 model Boiler_ph "Boiler of Rankine Cycle"
   import Modelica.Media.Water.IF97_Utilities.hv_p;
-
+  import Modelica.Media.Water.IF97_Utilities.h_pT;
   parameter Units.Dry x_out;
+  parameter Units.Temperature_DegC t_out;
   parameter Units.Pressure p_out;
   parameter Units.Pressure x_flow_out;
 
@@ -17,7 +18,11 @@ equation
   // mass
   outlet.x_flow=x_flow_out;
   // heat
-  outlet.h = hv_p(outlet.p*1.0e6)*1.0e-3;
+  if x_out==1 then
+    outlet.h = hv_p(outlet.p*1.0e6)*1.0e-3;
+  else
+    outlet.h = h_pT(outlet.p*1.0e6,t_out+273.15)*1.0e-3;
+  end if;
   q= outlet.x_flow*(outlet.h - inlet.h);
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}})), Icon(coordinateSystem(initialScale=0.1),

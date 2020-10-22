@@ -2,6 +2,7 @@ within RankineCycle;
 model Condenser_ph
   import Modelica.Media.Water.IF97_Utilities.hl_p;
   parameter Units.Pressure p_out;
+  parameter Units.Dry x_out;
   Units.HeatUnitMass q;
   FluidPort.FluidPortInPH inlet annotation (Placement(transformation(extent=
            {{-42,80},{-22,100}}),iconTransformation(extent={{-36,86},{-22,100}})));
@@ -12,7 +13,11 @@ model Condenser_ph
 equation
   outlet.x_flow =inlet.x_flow;
   outlet.p=p_out;
-  outlet.h = hl_p(outlet.p*1.0e6)*1.0e-3;
+  if x_out==0 then
+      outlet.h = hl_p(outlet.p*1.0e6)*1.0e-3;
+  else
+     outlet.h =-1000;
+  end if;
   q=outlet.x_flow*(inlet.h-outlet.h);
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(initialScale=

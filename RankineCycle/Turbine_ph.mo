@@ -3,8 +3,8 @@ model Turbine_ph "Turbine"
   import Modelica.Media.Water.IF97_Utilities.h_ps;
   import Modelica.Media.Water.IF97_Utilities.s_ph;
   parameter Units.Pressure p_out;
-  parameter Real ef;
-  Units.SpecificEntropy inlet_s,outlet_eq_s;
+  parameter Units.Efficiency ef;
+  Units.SpecificEntropy inlet_s;
   Units.WorkUnitMass w "worker";
   FluidPort.FluidPortInPH inlet annotation (Placement(transformation(extent={{-78,
             80},{-58,100}}), iconTransformation(extent={{-74,80},{-60,94}})));
@@ -13,9 +13,12 @@ model Turbine_ph "Turbine"
 equation
   outlet.x_flow=inlet.x_flow;
   inlet_s=s_ph(inlet.p*1.0e6,inlet.h*1.0e3)*1.0e-3;
-  outlet_eq_s=inlet_s;
   outlet.p=p_out;
-  outlet.h= h_ps(outlet.p*1.0e6,outlet_eq_s*1.0e3)*1.0e-3;
+  if ef==100 then
+    outlet.h= h_ps(outlet.p*1.0e6,inlet_s*1.0e3)*1.0e-3;
+  else
+    outlet.h = inlet.h - 0.01*ef * (inlet.h -h_ps(outlet.p*1.0e6,inlet_s));
+  end if;
   w = outlet.x_flow*(inlet.h - outlet.h);
   annotation (
     Diagram(coordinateSystem(extent={{-80,-100},{80,100}})),

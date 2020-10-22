@@ -12,7 +12,7 @@ model Units "Types with custom units"
       final unit="degC",
       displayUnit="degC",
       min=-273.15,
-      start=20);
+      start=0.0);
 
   type SpecificEnthalpy = Real (
       final quantity="SpecificEnthalpy",
@@ -57,7 +57,8 @@ model Units "Types with custom units"
       final unit="",
       displayUnit="",
       max=1,
-      min=0);
+      min=0,
+      start=-1);
   type HeatRate =         Real (
       final quantity="Cycle Heat Rate(kJ/kWh)",
       final unit="kJ/kWh",
@@ -66,10 +67,13 @@ model Units "Types with custom units"
       final quantity=" Steam Rate(kg/kWh)",
       final unit="kg/kWh",
       displayUnit="kg/kWh");
-  type CycleEfficiency =  Real (
-      final quantity=" Cycle Efficiency(%)",
+  type Efficiency =  Real (
+      final quantity=" Efficiency(%)",
       final unit="%",
-      displayUnit="%");
+      displayUnit="%",
+      min=0,
+      max=100,
+      start=100);
   annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},

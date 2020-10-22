@@ -7,16 +7,16 @@ model RankineCycle81 "The Simple Rankine Cycle"
     p_out=boiler_ouelet_p,
     x_flow_out=1)
     annotation (Placement(transformation(extent={{-94,14},{-52,56}})));
-     Turbine_ph turbine_ph(p_out=0.008, ef=1)
+     Turbine_ph turbine_ph(p_out=0.008, ef=100)
     annotation (Placement(transformation(extent={{34,30},{78,84}})));
-  Pump_ph pump_ph(p_out=8, ef=1)
+  Pump_ph pump_ph(p_out=8, ef=100)
     annotation (Placement(transformation(extent={{-60,-88},{-40,-68}})));
 
-  Condenser_ph condenser_ph(p_out=0.008)
+  Condenser_ph condenser_ph(p_out=0.008, x_out=0.0)
     annotation (Placement(transformation(extent={{56,-48},{98,-6}})));
   Units.WorkUnitMass totalworkExtracted,totalworkRequired,netpoweroutput;
   Units.HeatUnitMass totalheatAdded;
-  Units.CycleEfficiency  efficiency;
+  Units.Efficiency  efficiency;
   Units.HeatRate HeatRate;
   Units.SteamRate SteamRate;
 equation
