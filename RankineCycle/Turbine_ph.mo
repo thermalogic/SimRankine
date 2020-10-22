@@ -17,7 +17,7 @@ equation
   if ef==100 then
     outlet.h= h_ps(outlet.p*1.0e6,inlet_s*1.0e3)*1.0e-3;
   else
-    outlet.h = inlet.h - 0.01*ef * (inlet.h -h_ps(outlet.p*1.0e6,inlet_s));
+    outlet.h = inlet.h - 0.01*ef * (inlet.h-h_ps(outlet.p*1.0e6,inlet_s*1.0e3)*1.0e-3);
   end if;
   w = outlet.x_flow*(inlet.h - outlet.h);
   annotation (
