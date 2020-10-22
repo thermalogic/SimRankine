@@ -8,4 +8,4 @@ Michael J. Moran, Howard N. Shapiro, Daisie D. Boettner, Margaret B. Bailey. Fun
 Chapter 8 : Vapour Power Systems 
 
 * EXAMPLE 8.1: Analyzing an Ideal Rankine Cycle, P438
-* EXAMPLE 8.2: EXAMPLE 8.2: Analyzing a Rankine Cycle with Irreversibilities, P444, P444
+* EXAMPLE 8.2: Analyzing a Rankine Cycle with Irreversibilities, P444
