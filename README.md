@@ -9,3 +9,6 @@ Chapter 8 : Vapour Power Systems
 
 * EXAMPLE 8.1: Analyzing an Ideal Rankine Cycle, P438
 * EXAMPLE 8.2: Analyzing a Rankine Cycle with Irreversibilities, P444
+* EXAMPLE 8.5: The Regenerative Cycle with Open Feedwater Heater, P456
+
+[The Jupyter Notebook of Example Rankine Cycles](https://github.com/PySEE/PyRankine/)
