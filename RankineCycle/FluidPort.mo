@@ -27,13 +27,18 @@ model FluidPort "FluidPort"
             lineThickness=0.5)}));
   end FluidPortOutPH;
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}}), graphics={Ellipse(
-          extent={{-100,100},{100,-100}},
-          lineColor=DynamicSelect({0,131,169}, if Delta_p <= 0 then {0,131,169}
-               else {234,171,0}),
+            {100,100}}), graphics={
+        Polygon(fillColor={102,102,102},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          points={{-98,24},{-58,24},{-28,74},{-8,74},{-8,-66},{-28,-66},{-58,
+              -16},{-98,-16}}),
+        Polygon(origin={16,6},
+          lineColor={64,64,64},
           fillColor={255,255,255},
-          fillPattern=DynamicSelect(FillPattern.Solid, if Delta_p <= 0 then
-              FillPattern.Solid else FillPattern.Backward))}), Diagram(
+          fillPattern=FillPattern.Solid,
+          points={{-10.0,70.0},{10.0,70.0},{40.0,20.0},{80.0,20.0},{80.0,-20.0},{40.0,-20.0},{10.0,-70.0},{-10.0,-70.0}})}),
+                                                               Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
         graphics));
 end FluidPort;

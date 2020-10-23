@@ -48,6 +48,10 @@ equation
       thickness=0.5));
   annotation (
     Dialog(group = "Global parameter"),
-    Icon(coordinateSystem(initialScale = 0.1), graphics={  Rectangle(lineColor = {28, 108, 200}, extent = {{-70, 66}, {76, -32}}), Text(lineColor = {28, 108, 200}, extent = {{-30, 32}, {36, 4}}, textString = "Rankine Cycle", fontSize = 16, textStyle = {TextStyle.Bold})}),
+    Icon(coordinateSystem(initialScale = 0.1), graphics={  Rectangle(lineColor = {28, 108, 200}, extent = {{-70, 66}, {76, -32}}), Text(lineColor=
+              {28,108,200},                                                                                                                                         extent = {{-30, 32}, {36, 4}},                               fontSize=
+              16,                                                                                                                                                                                                        textStyle=
+              {TextStyle.Bold},
+          textString="Rankine Cycle")}),
     Diagram(coordinateSystem(initialScale = 0.1)));
 end RankineCycle81;

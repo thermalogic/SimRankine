@@ -33,37 +33,37 @@ equation
   SteamRate = HeatRate / totalheatAdded;
   connect(boiler_ph.outlet, turbineEX1_ph.inlet) annotation (Line(
       points={{-71.6,37.2},{-72,37.2},{-72,77.4},{-17.4,77.4}},
-      color={0,131,169},
+      color={238,46,47},
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(boiler_ph.inlet, pump_ph_fw.outlet) annotation (Line(
       points={{-72,19},{-72,-34},{-57,-34}},
-      color={0,131,169},
+      color={0,140,72},
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(pump_ph_fw.inlet, openedheaterDw0_ph.outletFW) annotation (Line(
       points={{-38.6,-33.8},{-24,-33.8},{-24,-34.18},{-23.66,-34.18}},
-      color={0,131,169},
+      color={0,140,72},
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(turbineEX1_ph.exlet, openedheaterDw0_ph.inletSM) annotation (Line(
       points={{-7.6,46.4},{-8,46.4},{-8,-19.96}},
-      color={0,131,169},
+      color={238,46,47},
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(turbineEX1_ph.outlet, condenser_ph.inlet) annotation (Line(
       points={{6.6,44.6},{80,44.6},{80,15.3},{81.1,15.3}},
-      color={0,131,169},
+      color={238,46,47},
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(openedheaterDw0_ph.inletFW, pump_ph_cd.outlet) annotation (Line(
       points={{8.02,-33.82},{20,-33.82},{20,-34},{35,-34}},
-      color={0,131,169},
+      color={0,140,72},
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(pump_ph_cd.inlet, condenser_ph.outlet) annotation (Line(
       points={{53.4,-33.8},{81.9,-33.8},{81.9,-1.1}},
-      color={0,131,169},
+      color={0,140,72},
       pattern=LinePattern.Solid,
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
