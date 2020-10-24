@@ -2,9 +2,9 @@ within RankineCycle;
 model FluidPort "FluidPort"
 
  connector FluidPortPH
-    Units.Pressure p "Potential/effort variable";
+    Units.Pressure p "Pressure";
     Units.SpecificEnthalpy h "Specific enthalpy";
-    Units.MassFraction x_flow "Flow variable";
+    Units.MassFraction x_flow "Mass Fraction";
    end FluidPortPH;
 
   connector FluidPortInPH
