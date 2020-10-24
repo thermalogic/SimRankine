@@ -5,8 +5,8 @@ model OpenedheaterDw0_ph
   parameter Units.Pressure p_out;
   Units.HeatUnitMass heatAdded,heatExtracted;
   Units.SpecificEnthalpy qes1,qfw1;
-  FluidPort.FluidPortInPH inletFW annotation (Placement(transformation(extent={{76,-12},
-            {96,8}}),            iconTransformation(extent={{82,-6},{96,8}})));
+  FluidPort.FluidPortInPH inletFW annotation (Placement(transformation(extent={{74,-12},
+            {94,8}}),            iconTransformation(extent={{80,-6},{94,8}})));
   FluidPort.FluidPortOutPH outletFW annotation (Placement(transformation(
           extent={{-100,-14},{-80,6}}), iconTransformation(extent={{-94,-8},{
             -80,6}})));
@@ -48,6 +48,6 @@ equation
           extent={{-100,-80},{38,-96}}),
         Line(points={{0,72},{0,76},{0,86}},       color={28,108,200}),
         Line(points={{-80,0},{-58,0}}, color={0,140,72}),
-        Line(points={{58,0},{80,0}}, color={0,140,72}),
+        Line(points={{60,0},{80,0}}, color={0,140,72}),
         Line(points={{0,68},{0,54}}, color={238,46,47})}));
 end OpenedheaterDw0_ph;

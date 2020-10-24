@@ -11,7 +11,8 @@ model Pump_ph
           extent={{-100,-10},{-80,10}}), iconTransformation(extent={{-100,-10},{
             -80,10}})));
   FluidPort.FluidPortInPH inlet annotation (Placement(transformation(
-          extent={{84,-8},{104,12}}), iconTransformation(extent={{84,-8},{104,12}})));
+          extent={{80,-10},{100,10}}),iconTransformation(extent={{80,-10},{100,
+            10}})));
 equation
   outlet.p=p_out;
   outlet.x_flow=inlet.x_flow;
@@ -30,8 +31,8 @@ equation
           extent={{-100,100},{46,-40}},
           endAngle=360),
         Line(
-          origin={-6.6879,-0.254777},
-          points={{-78,0},{94,2}},
+          origin={-6.6879,-0.25478},
+          points={{-78,0},{94.6879,0.25478}},
           color={0,131,169}),
         Line(
           origin={35.2228,1.78344},

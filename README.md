@@ -15,6 +15,9 @@ Chapter 8 : Vapour Power Systems
 
 [The Jupyter Notebook of Example Rankine Cycles](https://github.com/PySEE/PyRankine)
 
+   
+![](./img/simrankine.jpg)
+
 ## Cite as
 
 Cheng Maohua. (2020, October 24). thermalogic/SimRankine 1.0.2 (Version 1.0.2). Zenodo. http://doi.org/10.5281/zenodo.4124811
