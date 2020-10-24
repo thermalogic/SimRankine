@@ -71,5 +71,6 @@ equation
           extent={{-38,-16},{36,8}},
           lineColor={28,108,200},
           textString="Rankine85")}),                             Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation);
 end RankineCycle85;

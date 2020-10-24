@@ -2,7 +2,7 @@ within RankineCycle.Components;
 model Condenser_ph
   import Modelica.Media.Water.IF97_Utilities.hl_p;
   parameter Units.Pressure p_out;
-  parameter Units.Dry x_out;
+  parameter Units.Dryness x_out;
   Units.HeatUnitMass q;
   FluidPort.FluidPortInPH inlet annotation (Placement(transformation(extent=
            {{-42,80},{-22,100}}),iconTransformation(extent={{-36,86},{-22,100}})));

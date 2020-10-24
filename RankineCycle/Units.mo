@@ -52,7 +52,7 @@ model Units "Types with custom units"
       displayUnit="MW",
       min=0);
 
-  type Dry =      Real (
+  type Dryness =      Real (
       final quantity="Dryness",
       final unit="",
       displayUnit="",

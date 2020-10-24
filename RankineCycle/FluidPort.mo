@@ -1,10 +1,14 @@
 within RankineCycle;
 model FluidPort "FluidPort"
 
-  connector FluidPortInPH
+ connector FluidPortPH
     Units.Pressure p "Potential/effort variable";
     Units.SpecificEnthalpy h "Specific enthalpy";
     Units.MassFraction x_flow "Flow variable";
+   end FluidPortPH;
+
+  connector FluidPortInPH
+    extends FluidPortPH;
     annotation (Icon(graphics={Ellipse(
             extent={{-98,96},{102,-104}},
             fillColor={0,131,169},
@@ -15,9 +19,7 @@ model FluidPort "FluidPort"
   end FluidPortInPH;
 
   connector FluidPortOutPH
-    Units.Pressure p "Potential/effort variable";
-    Units.SpecificEnthalpy h "Specific enthalpy";
-    Units.MassFraction x_flow "Flow variable";
+    extends FluidPortPH;
     annotation (Icon(graphics={Ellipse(
             extent={{-98,98},{98,-100}},
             fillColor={255,255,255},

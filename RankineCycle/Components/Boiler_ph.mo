@@ -2,7 +2,7 @@ within RankineCycle.Components;
 model Boiler_ph "Boiler of Rankine Cycle"
   import Modelica.Media.Water.IF97_Utilities.hv_p;
   import Modelica.Media.Water.IF97_Utilities.h_pT;
-  parameter Units.Dry x_out;
+  parameter Units.Dryness x_out;
   parameter Units.Temperature_DegC t_out;
   parameter Units.Pressure p_out;
   parameter Units.MassFraction x_flow_out;

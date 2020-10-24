@@ -1,7 +1,7 @@
 within RankineCycle.Components;
 model OpenedheaterDw0_ph
   import Modelica.Media.Water.IF97_Utilities.hl_p;
-  parameter Units.Dry x_out;
+  parameter Units.Dryness x_out;
   parameter Units.Pressure p_out;
   Units.HeatUnitMass heatAdded,heatExtracted;
   Units.SpecificEnthalpy qes1,qfw1;
