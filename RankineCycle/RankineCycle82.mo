@@ -1,9 +1,10 @@
 within RankineCycle;
-model RankineCycle82 "The Simple Rankine Cycle"
+model RankineCycle82 "Analyzing a Rankine Cycle with Irreversibilities, P444"
+  parameter Units.Pressure boiler_ouelet_p=8;
   // Variables
  Components.Boiler_ph boiler(
     x_out=1,
-    p_out=8,
+    p_out=boiler_ouelet_p,
     x_flow_out=1)
     annotation (Placement(transformation(extent={{-94,14},{-52,56}})));
   Components.Turbine_ph turbine_ph(p_out=0.008, ef=85)

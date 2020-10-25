@@ -1,5 +1,5 @@
 within RankineCycle;
-model RankineCycle85
+model RankineCycle85 "Example 8.5: The Regenerative Cycle with Open Feedwater Heater, P456"
   Components.Boiler_ph boiler_ph(
     t_out=480.00,
     p_out=8.0,
@@ -32,7 +32,7 @@ equation
   HeatRate = 3600.0 /(efficiency*0.01);
   SteamRate = HeatRate / totalheatAdded;
   connect(boiler_ph.outlet, turbineEX1_ph.inlet) annotation (Line(
-      points={{-71.6,37.2},{-72,37.2},{-72,77.4},{-17.4,77.4}},
+      points={{-72,37.2},{-72,37.2},{-72,77.4},{-17.4,77.4}},
       color={238,46,47},
       pattern=LinePattern.Solid,
       thickness=0.5));
@@ -52,12 +52,12 @@ equation
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(turbineEX1_ph.outlet, condenser_ph.inlet) annotation (Line(
-      points={{6.6,44.6},{80,44.6},{80,15.3},{81.1,15.3}},
+      points={{6.6,44.6},{80,44.6},{80,15.3},{82.1,15.3}},
       color={238,46,47},
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(pump_ph_cd.inlet, condenser_ph.outlet) annotation (Line(
-      points={{68.8,-34},{81.9,-34},{81.9,-1.1}},
+      points={{68.8,-34},{82.1,-34},{82.1,-0.9}},
       color={0,140,72},
       pattern=LinePattern.Solid,
       thickness=0.5));

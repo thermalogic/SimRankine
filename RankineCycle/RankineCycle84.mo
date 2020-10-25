@@ -1,5 +1,5 @@
 within RankineCycle;
-model RankineCycle84
+model RankineCycle84 "Evaluating Performance of a Reheat Cycle with Turbine Irreversibility, P451"
   Components.Pump_ph pump_ph_fw(p_out=8, ef=100)
     annotation (Placement(transformation(extent={{-30,-24},{-10,-4}})));
   Components.Condenser_ph condenser_ph(p_out=0.008, x_out=0)
