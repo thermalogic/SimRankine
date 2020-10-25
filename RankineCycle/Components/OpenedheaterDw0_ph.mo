@@ -5,15 +5,14 @@ model OpenedheaterDw0_ph
   parameter Units.Pressure p_out;
   Units.HeatUnitMass heatAdded,heatExtracted;
   Units.SpecificEnthalpy qes1,qfw1;
-  FluidPort.FluidPortInPH inletFW annotation (Placement(transformation(extent={{74,-12},
-            {94,8}}),            iconTransformation(extent={{80,-6},{94,8}})));
+  FluidPort.FluidPortInPH inletFW annotation (Placement(transformation(extent={{74,-14},
+            {94,6}}),            iconTransformation(extent={{80,-8},{94,6}})));
   FluidPort.FluidPortOutPH outletFW annotation (Placement(transformation(
           extent={{-100,-14},{-80,6}}), iconTransformation(extent={{-94,-8},{
             -80,6}})));
 
   FluidPort.FluidPortInPH inletSM annotation (Placement(transformation(
-          extent={{-10,68},{10,88}}), iconTransformation(extent={{-10,68},{10,
-            88}})));
+          extent={{-8,68},{10,86}}),  iconTransformation(extent={{-8,68},{10,86}})));
 equation
   outletFW.p=p_out;
   if x_out==0 then
@@ -30,8 +29,13 @@ equation
 
   heatAdded =inletFW.x_flow * qfw1;
   heatExtracted = inletSM.x_flow * qes1;
+  connect(inletFW, inletFW) annotation (Line(
+      points={{84,-4},{84,-4}},
+      color={0,131,169},
+      pattern=LinePattern.Solid,
+      thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(initialScale=
+            -100},{100,100}})),           Icon(coordinateSystem(initialScale=
             0.1), graphics={
         Rectangle(
           origin={-6.08683,20.5198},

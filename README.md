@@ -15,7 +15,7 @@ Chapter 8 : Vapour Power Systems
 
 [The Jupyter Notebook of Example Rankine Cycles](https://github.com/PySEE/PyRankine)
 
-   
+  
 ![](./img/simrankine.jpg)
 
 ## Cite as
