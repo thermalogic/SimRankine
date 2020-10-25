@@ -4,11 +4,11 @@ model Condenser_ph
   parameter Units.Pressure p_out;
   parameter Units.Dryness x_out;
   Units.HeatUnitMass q;
-  FluidPort.FluidPortInPH inlet annotation (Placement(transformation(extent=
-           {{-42,80},{-22,100}}),iconTransformation(extent={{-36,86},{-22,100}})));
+  FluidPort.FluidPortInPH inlet annotation (Placement(transformation(extent={{-14,68},
+            {6,88}}),            iconTransformation(extent={{-8,74},{6,88}})));
   FluidPort.FluidPortOutPH outlet annotation (Placement(transformation(
-          extent={{-34,-84},{-14,-64}}),iconTransformation(extent={{-28,-78},{-14,
-            -64}})));
+          extent={{-12,-74},{8,-54}}),  iconTransformation(extent={{-6,-68},{8,
+            -54}})));
 
 equation
   outlet.x_flow =inlet.x_flow;
@@ -23,22 +23,21 @@ equation
             -100},{100,100}}), graphics), Icon(coordinateSystem(initialScale=
             0.1), graphics={
         Rectangle(
-          origin={-36,32.8492},
+          origin={-8.11541,30.1369},
           lineColor={0,131,169},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          extent={{-62,49.1508},{76,-88.8492}}),
+          extent={{-71.8846,49.8631},{88.1154,-90.1369}}),
         Line(
-          origin={-50.382,18.7006},
-          points={{100,58},{-36,58},{38,-2},{-30,-62},{100,-62}},
-          color={0,131,169}),
+          origin={-34.382,0.7006},
+          points={{128.382,57.2994},{-36,58},{36.382,5.2994},{-33.618,-42.7006},
+              {124.382,-42.7006}},
+          color={0,140,72}),
         Rectangle(
           visible=false,
           origin={2,24},
           lineColor={0,131,169},
           fillColor={0,131,169},
           fillPattern=FillPattern.Solid,
-          extent={{-100,-80},{38,-96}}),
-        Line(points={{-28,86},{-28,82},{-28,84}}, color={28,108,200}),
-        Line(points={{-20,-56},{-20,-64}}, color={28,108,200})}));
+          extent={{-100,-80},{38,-96}})}));
 end Condenser_ph;

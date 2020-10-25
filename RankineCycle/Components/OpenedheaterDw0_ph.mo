@@ -5,14 +5,14 @@ model OpenedheaterDw0_ph
   parameter Units.Pressure p_out;
   Units.HeatUnitMass heatAdded,heatExtracted;
   Units.SpecificEnthalpy qes1,qfw1;
-  FluidPort.FluidPortInPH inletFW annotation (Placement(transformation(extent={{74,-14},
-            {94,6}}),            iconTransformation(extent={{80,-8},{94,6}})));
+  FluidPort.FluidPortInPH inletFW annotation (Placement(transformation(extent={{54,-14},
+            {74,6}}),            iconTransformation(extent={{60,-8},{74,6}})));
   FluidPort.FluidPortOutPH outletFW annotation (Placement(transformation(
-          extent={{-100,-14},{-80,6}}), iconTransformation(extent={{-94,-8},{
-            -80,6}})));
+          extent={{-78,-12},{-58,8}}),  iconTransformation(extent={{-72,-6},{
+            -58,8}})));
 
   FluidPort.FluidPortInPH inletSM annotation (Placement(transformation(
-          extent={{-8,68},{10,86}}),  iconTransformation(extent={{-8,68},{10,86}})));
+          extent={{-10,52},{8,70}}),  iconTransformation(extent={{-10,52},{8,70}})));
 equation
   outletFW.p=p_out;
   if x_out==0 then
@@ -30,7 +30,7 @@ equation
   heatAdded =inletFW.x_flow * qfw1;
   heatExtracted = inletSM.x_flow * qes1;
   connect(inletFW, inletFW) annotation (Line(
-      points={{84,-4},{84,-4}},
+      points={{64,-4},{64,-4}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));
@@ -49,9 +49,5 @@ equation
           lineColor={0,131,169},
           fillColor={0,131,169},
           fillPattern=FillPattern.Solid,
-          extent={{-100,-80},{38,-96}}),
-        Line(points={{0,72},{0,76},{0,86}},       color={28,108,200}),
-        Line(points={{-80,0},{-58,0}}, color={0,140,72}),
-        Line(points={{60,0},{80,0}}, color={0,140,72}),
-        Line(points={{0,68},{0,54}}, color={238,46,47})}));
+          extent={{-100,-80},{38,-96}})}));
 end OpenedheaterDw0_ph;

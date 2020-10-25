@@ -1,5 +1,5 @@
 within RankineCycle.Components;
-model TurbineEX1_ph "Turbine"
+model TurbineEx1_ph "Turbine"
   import Modelica.Media.Water.IF97_Utilities.h_ps;
   import Modelica.Media.Water.IF97_Utilities.s_ph;
   parameter Units.Pressure p_out,p_ex;
@@ -7,12 +7,12 @@ model TurbineEX1_ph "Turbine"
   Units.SpecificEntropy inlet_s;
   Units.WorkUnitMass ienergy,oenergy, w "worker";
   FluidPort.FluidPortInPH inlet annotation (Placement(transformation(extent={{-78,
-            80},{-58,100}}), iconTransformation(extent={{-74,80},{-60,94}})));
+            80},{-58,100}}), iconTransformation(extent={{-70,58},{-56,72}})));
   FluidPort.FluidPortOutPH outlet annotation (Placement(transformation(extent={{-52,
-            -76},{-32,-56}}), iconTransformation(extent={{46,-84},{60,-70}})));
+            -76},{-32,-56}}), iconTransformation(extent={{54,-72},{68,-58}})));
   FluidPort.FluidPortOutPH exlet annotation (Placement(transformation(
-          extent={{-28,-78},{-8,-58}}), iconTransformation(extent={{-28,-78},{
-            -8,-58}})));
+          extent={{-26,-54},{-16,-44}}),iconTransformation(extent={{-26,-54},{
+            -16,-44}})));
 equation
   outlet.p=p_out;
   exlet.p=p_ex;
@@ -38,9 +38,6 @@ equation
           lineColor={0,131,169},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          points={{-70,52},{48,72},{50,-68},{-70,-38},{-70,52}}),
-        Line(points={{-68,80},{-68,60}}, color={238,46,47}),
-        Line(points={{52,-60},{52,-70}}, color={238,46,47}),
-        Line(points={{-18,-42},{-18,-58}}, color={238,46,47})}),
+          points={{-62,52},{58,72},{58,-68},{-62,-48},{-62,52}})}),
     __OpenModelica_commandLineOptions="");
-end TurbineEX1_ph;
+end TurbineEx1_ph;

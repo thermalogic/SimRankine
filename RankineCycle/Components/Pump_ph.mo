@@ -8,10 +8,10 @@ model Pump_ph
   Units.WorkUnitMass w;
   Real outlet_s,outlet_h_s;
   FluidPort.FluidPortOutPH outlet annotation (Placement(transformation(
-          extent={{-96,-8},{-80,8}}),    iconTransformation(extent={{-96,-8},{
-            -80,8}})));
+          extent={{-86,-8},{-70,8}}),    iconTransformation(extent={{-86,-8},{
+            -70,8}})));
   FluidPort.FluidPortInPH inlet annotation (Placement(transformation(
-          extent={{80,-8},{96,8}}),   iconTransformation(extent={{80,-8},{96,8}})));
+          extent={{72,-8},{88,8}}),   iconTransformation(extent={{72,-8},{88,8}})));
 equation
   outlet.p=p_out;
   outlet.x_flow=inlet.x_flow;
@@ -30,9 +30,10 @@ equation
           extent={{-100,100},{46,-40}},
           endAngle=360),
         Line(
-          origin={-6.6879,-0.25478},
-          points={{-78,0},{94.6879,0.25478}},
-          color={0,131,169}),
+          origin={7.3121,-0.25478},
+          points={{-78,0},{82.6879,0.25478}},
+          color={0,140,72},
+          arrow={Arrow.Filled,Arrow.None}),
         Line(
           origin={35.2228,1.78344},
           rotation=180,

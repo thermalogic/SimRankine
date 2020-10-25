@@ -9,10 +9,11 @@ model Boiler_ph "Boiler of Rankine Cycle"
 
   Units.HeatUnitMass q;
   FluidPort.FluidPortOutPH outlet annotation (Placement(transformation(
-          extent={{-6,82},{14,102}}), iconTransformation(extent={{-6,82},{14,102}})));
+          extent={{-10,82},{10,102}}),iconTransformation(extent={{-10,82},{10,
+            102}})));
   FluidPort.FluidPortInPH inlet annotation (Placement(transformation(
-          extent={{-10,-100},{10,-80}}), iconTransformation(extent={{-10,-100},{
-            10,-80}})));
+          extent={{-8,-82},{12,-62}}),   iconTransformation(extent={{-8,-82},{
+            12,-62}})));
 equation
   outlet.p=p_out;
   // mass
@@ -48,8 +49,8 @@ equation
           color={0,131,169}),
         Line(
           origin={0.44586,-2},
-          points={{-0.44586,56},{-20,70},{20,70},{0,88}},
-          color={0,131,169}),
-        Polygon(points={{-64,-78},{-64,-78},{-64,-78},{-64,-78}}),
-        Line(points={{0,-72},{0,-82}}, color={28,108,200})}));
+          points={{-0.44586,54},{-20,70},{20,70},{-0.44586,86}},
+          color={238,46,47},
+          arrow={Arrow.None,Arrow.Filled}),
+        Polygon(points={{-64,-78},{-64,-78},{-64,-78},{-64,-78}})}));
 end Boiler_ph;
