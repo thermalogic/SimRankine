@@ -1,5 +1,5 @@
 
-# The Simple Rankine Cycle Simulator with Modelica
+# The Simple Rankine Cycle Simulator in Modelica
 
 [![DOI](https://zenodo.org/badge/306221786.svg)](https://zenodo.org/badge/latestdoi/306221786)
 
@@ -9,12 +9,11 @@ Michael J. Moran, Howard N. Shapiro, Daisie D. Boettner, Margaret B. Bailey. Fun
 
 Chapter 8 : Vapour Power Systems 
 
+[The Jupyter Notebook of Example Rankine Cycles](https://github.com/PySEE/PyRankine)
+
 * EXAMPLE 8.1: Analyzing an Ideal Rankine Cycle, P438
 * EXAMPLE 8.2: Analyzing a Rankine Cycle with Irreversibilities, P444
 * EXAMPLE 8.5: The Regenerative Cycle with Open Feedwater Heater, P456
-
-[The Jupyter Notebook of Example Rankine Cycles](https://github.com/PySEE/PyRankine)
-
   
 ![](./img/simrankine.jpg)
 
