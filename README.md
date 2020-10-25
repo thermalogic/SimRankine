@@ -13,6 +13,8 @@ Chapter 8 : Vapour Power Systems
 
 * EXAMPLE 8.1: Analyzing an Ideal Rankine Cycle, P438
 * EXAMPLE 8.2: Analyzing a Rankine Cycle with Irreversibilities, P444
+* Example 8.3: Evaluating Performance of an Ideal Reheat Cycle, P449
+* Example 8.4: Evaluating Performance of a Reheat Cycle with Turbine Irreversibility, P451
 * EXAMPLE 8.5: The Regenerative Cycle with Open Feedwater Heater, P456
   
 ![simrankine](./img/simrankine.jpg)
