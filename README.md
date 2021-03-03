@@ -37,7 +37,7 @@ type `make` in the terminal of `./cpp` to Build and Run
 
 **Prerequisites**：Dymola
 
-![modelica](./img/simrankine.jpg)
+![simrankinemo](./img/simrankinemo.jpg)
 
 ## The Example Rankine cycles
 
