@@ -1,9 +1,45 @@
-
-# The Simple Rankine Cycle Simulator in Modelica
+# SimRankine
 
 [![DOI](https://zenodo.org/badge/306221786.svg)](https://zenodo.org/badge/latestdoi/306221786)
 
-## Example Rankine Cycles
+The SimRankine is the demo steady-state simulator of Rankine cycle. The demo simulator is available in Python, C++ and Modelica
+
+* [Python](./python)
+
+* [C++](./cpp)
+
+* [Modelica](./mo)
+
+## Python
+
+### Prerequisites：seuif97
+
+```bash
+python -m pip install seuif97
+```
+### Run
+ 
+type `python  rankineapp.py` in the terminal of `./python` 
+
+```bash
+python  rankineapp.py
+```
+
+## C++
+
+type `make` in the terminal of `./cpp` to Build and Run
+
+```bash
+>make
+```
+
+## Modelica
+
+**Prerequisites**：Dymola
+
+![modelica](./img/simrankine.jpg)
+
+## The Example Rankine cycles
 
 Michael J. Moran, Howard N. Shapiro, Daisie D. Boettner, Margaret B. Bailey. Fundamentals of Engineering Thermodynamics(7th Edition). John Wiley & Sons, Inc. 2011
 
@@ -17,8 +53,7 @@ Chapter 8 : Vapour Power Systems
 * Example 8.4: Evaluating Performance of a Reheat Cycle with Turbine Irreversibility, P451
 * Example 8.5: The Regenerative Cycle with Open Feedwater Heater, P456
   
-![simrankine](./img/simrankine.jpg)
-
 ## Cite as
 
 Cheng Maohua. (2020, October 24). thermalogic/SimRankine 1.0.2 (Version 1.0.2). Zenodo. http://doi.org/10.5281/zenodo.4124811
+

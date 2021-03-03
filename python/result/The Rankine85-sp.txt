@@ -1,0 +1,65 @@
+
+ Rankine Cycle: The Rankine85, Time: 2021/03/01 12:51:23
+       Net Power(MW) 100.00
+     Mass Flow(kg/h) 368813.09
+ Cycle Efficiency(%) 36.91
+Cycle Heat Rate(kJ/kWh) 9752.56
+  Steam Rate(kg/kWh) 3.69
+ totalWExtracted(MW) 100.88
+  totalWRequired(MW) 0.88
+     totalQAdded(MW) 270.90
+
+Index  	P(MPa)   	   T(°C) 	  H(kJ/kg) 	S(kJ/kg.K) 	 Quality   	 FDOT  	MDOT(kg/s)
+  0   	    8.0	  480.00	   3349.53	   6.661	    1.0000		1.0000	368813.09
+  1   	    0.7	  194.85	   2833.66	   6.864	    1.0000		0.1965	72482.58
+  2   	  0.008	   41.51	   2250.10	   7.191	    0.8642		0.8035	296330.50
+  3   	  0.008	   41.51	    173.85	   0.593	    0.0000		0.8035	296330.50
+  4   	    0.7	   41.53	    174.55	   0.593	    0.0000		0.8035	296330.50
+  5   	    0.7	  164.95	    697.14	   1.992	    0.0000		1.0000	368813.09
+  6   	    8.0	  165.85	    705.22	   1.992	    0.0000		1.0000	368813.09
+
+TurbineEx1
+ PORT Index  	P(MPa)   	   T(°C) 	  H(kJ/kg) 	S(kJ/kg.K) 	 Quality   	 FDOT  	MDOT(kg/s)
+ iPort   0   	    8.0	  480.00	   3349.53	   6.661	    1.0000		1.0000	368813.09
+ oPort   2   	  0.008	   41.51	   2250.10	   7.191	    0.8642		0.8035	296330.50
+ ePprt   1   	    0.7	  194.85	   2833.66	   6.864	    1.0000		0.1965	72482.58
+workExtracted(kJ/kg): 	984.74
+WExtracted(MW): 	100.88
+
+Condenser
+ PORTS Index  	P(MPa)   	   T(°C) 	  H(kJ/kg) 	S(kJ/kg.K) 	 Quality   	 FDOT  	MDOT(kg/s)
+ iPort   2   	  0.008	   41.51	   2250.10	   7.191	    0.8642		0.8035	296330.50
+ oPort   3   	  0.008	   41.51	    173.85	   0.593	    0.0000		0.8035	296330.50
+heatExtracted(kJ/kg)  	1668.21
+QExtracted(MW): 	170.90
+
+CondensatePump
+ PORT Index  	P(MPa)   	   T(°C) 	  H(kJ/kg) 	S(kJ/kg.K) 	 Quality   	 FDOT  	MDOT(kg/s)
+ iPort   3   	  0.008	   41.51	    173.85	   0.593	    0.0000		0.8035	296330.50
+ oPort   4   	    0.7	   41.53	    174.55	   0.593	    0.0000		0.8035	296330.50
+workRequired(kJ/kg): 	0.56
+WRequired(MW): 	0.06
+
+OpenedFeedwaterHeater
+ PORT Index  	P(MPa)   	   T(°C) 	  H(kJ/kg) 	S(kJ/kg.K) 	 Quality   	 FDOT  	MDOT(kg/s)
+ iPort   1   	    0.7	  194.85	   2833.66	   6.864	    1.0000		0.1965	72482.58
+ iPort_fw   4   	    0.7	   41.53	    174.55	   0.593	    0.0000		0.8035	296330.50
+ oPort_fw   5   	    0.7	  164.95	    697.14	   1.992	    0.0000		1.0000	368813.09
+heatAdded(kJ/kg) 	419.89
+heatExtracted(kJ/kg) 	419.89
+QAdded(MW) 	43.02
+QExtracted(MW)  	43.02
+
+FeedwaterPump
+ PORT Index  	P(MPa)   	   T(°C) 	  H(kJ/kg) 	S(kJ/kg.K) 	 Quality   	 FDOT  	MDOT(kg/s)
+ iPort   5   	    0.7	  164.95	    697.14	   1.992	    0.0000		1.0000	368813.09
+ oPort   6   	    8.0	  165.85	    705.22	   1.992	    0.0000		1.0000	368813.09
+workRequired(kJ/kg): 	8.07
+WRequired(MW): 	0.83
+
+Boiler
+ PORTS Index  	P(MPa)   	   T(°C) 	  H(kJ/kg) 	S(kJ/kg.K) 	 Quality   	 FDOT  	MDOT(kg/s)
+ iPort   6   	    8.0	  165.85	    705.22	   1.992	    0.0000		1.0000	368813.09
+ oPort   0   	    8.0	  480.00	   3349.53	   6.661	    1.0000		1.0000	368813.09
+heatAdded(kJ/kg) 	2644.31
+QAdded(MW) 	270.90

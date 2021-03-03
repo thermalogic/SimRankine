@@ -24,55 +24,27 @@ model RankineCycle85 "Example 8.5: The Regenerative Cycle with Open Feedwater He
   Units.HeatRate HeatRate;
   Units.SteamRate SteamRate;
 equation
-  totalworkExtracted=turbineEx1_ph.w;
-  totalworkRequired=pump_ph_fw.w+pump_ph_cd.w;
-  netpoweroutput = totalworkExtracted -totalworkRequired;
-  totalheatAdded=boiler_ph.q;
-  efficiency = (netpoweroutput / totalheatAdded)*100;
-  HeatRate = 3600.0 /(efficiency*0.01);
+  totalworkExtracted = turbineEx1_ph.w;
+  totalworkRequired = pump_ph_fw.w + pump_ph_cd.w;
+  netpoweroutput = totalworkExtracted - totalworkRequired;
+  totalheatAdded = boiler_ph.q;
+  efficiency = netpoweroutput / totalheatAdded * 100;
+  HeatRate = 3600.0 / (efficiency * 0.01);
   SteamRate = HeatRate / totalheatAdded;
-  connect(boiler_ph.outlet,turbineEx1_ph. inlet) annotation (Line(
-      points={{-67,60.96},{-67,88},{-8.6,88},{-8.6,77}},
-      color={238,46,47},
-      pattern=LinePattern.Solid,
-      thickness=0.5,
-      arrow={Arrow.None,Arrow.Filled}));
-  connect(boiler_ph.inlet, pump_ph_fw.outlet) annotation (Line(
-      points={{-66.74,39.64},{-66.74,-12},{-51.8,-12}},
-      color={0,140,72},
-      pattern=LinePattern.Solid,
-      thickness=0.5,
-      arrow={Arrow.Filled,Arrow.None}));
-  connect(pump_ph_fw.inlet, openedheaterDw0_ph.outletFW) annotation (Line(
-      points={{-36,-12},{-24,-12},{-24,-11.82},{-11.7,-11.82}},
-      color={0,140,72},
-      pattern=LinePattern.Solid,
-      thickness=0.5,
-      arrow={Arrow.Filled,Arrow.None}));
-  connect(turbineEx1_ph.exlet, openedheaterDw0_ph.inletSM) annotation (Line(
-      points={{-0.2,54.2},{-0.18,54.2},{-0.18,-1.02}},
-      color={238,46,47},
-      pattern=LinePattern.Solid,
-      thickness=0.5,
-      arrow={Arrow.None,Arrow.Filled}));
-  connect(turbineEx1_ph.outlet, condenser_ph.inlet) annotation (Line(
-      points={{16.2,51},{79.9,51},{79.9,14.1}},
-      color={238,46,47},
-      pattern=LinePattern.Solid,
-      thickness=0.5,
-      arrow={Arrow.None,Arrow.Filled}));
-  connect(pump_ph_cd.inlet, condenser_ph.outlet) annotation (Line(
-      points={{48,-12},{80.1,-12},{80.1,-0.1}},
-      color={0,140,72},
-      pattern=LinePattern.Solid,
-      thickness=0.5,
-      arrow={Arrow.Filled,Arrow.None}));
-  connect(openedheaterDw0_ph.inletFW, pump_ph_cd.outlet) annotation (Line(
-      points={{12.06,-12.18},{32.2,-12}},
-      color={0,140,72},
-      pattern=LinePattern.Solid,
-      thickness=0.5,
-      arrow={Arrow.Filled,Arrow.None}));
+  connect(boiler_ph.outlet, turbineEx1_ph.inlet) annotation(
+    Line(points = {{-67, 60.96}, {-67, 88}, {-8.6, 88}, {-8.6, 77}}, color = {238, 46, 47}, pattern = LinePattern.Solid, thickness = 0.5, arrow = {Arrow.None, Arrow.Filled}));
+  connect(boiler_ph.inlet, pump_ph_fw.outlet) annotation(
+    Line(points = {{-66.74, 39.64}, {-66.74, -12}, {-51.8, -12}}, color = {0, 140, 72}, pattern = LinePattern.Solid, thickness = 0.5, arrow = {Arrow.Filled, Arrow.None}));
+  connect(pump_ph_fw.inlet, openedheaterDw0_ph.outletFW) annotation(
+    Line(points = {{-36, -12}, {-24, -12}, {-24, -11.82}, {-11.7, -11.82}}, color = {0, 140, 72}, pattern = LinePattern.Solid, thickness = 0.5, arrow = {Arrow.Filled, Arrow.None}));
+  connect(turbineEx1_ph.exlet, openedheaterDw0_ph.inletSM) annotation(
+    Line(points = {{-0.2, 54.2}, {-0.18, 54.2}, {-0.18, -1.02}}, color = {238, 46, 47}, pattern = LinePattern.Solid, thickness = 0.5, arrow = {Arrow.None, Arrow.Filled}));
+  connect(turbineEx1_ph.outlet, condenser_ph.inlet) annotation(
+    Line(points = {{16.2, 51}, {79.9, 51}, {79.9, 14.1}}, color = {238, 46, 47}, pattern = LinePattern.Solid, thickness = 0.5, arrow = {Arrow.None, Arrow.Filled}));
+  connect(pump_ph_cd.inlet, condenser_ph.outlet) annotation(
+    Line(points = {{48, -12}, {80.1, -12}, {80.1, -0.1}}, color = {0, 140, 72}, pattern = LinePattern.Solid, thickness = 0.5, arrow = {Arrow.Filled, Arrow.None}));
+  connect(openedheaterDw0_ph.inletFW, pump_ph_cd.outlet) annotation(
+    Line(points = {{12.06, -12.18}, {32.2, -12}}, color = {0, 140, 72}, pattern = LinePattern.Solid, thickness = 0.5, arrow = {Arrow.Filled, Arrow.None}));
   annotation (Icon(coordinateSystem(preserveAspectRatio = false), graphics={Rectangle(origin = {2, 26},lineColor = {28, 108, 200}, extent = {{-92, 62}, {94, -64}}), Text(origin = {30, 58},lineColor = {255, 0, 0}, extent = {{-106, -84}, {36, 8}}, textString = "Rankine85", textStyle = {TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold, TextStyle.Bold})}),                             Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation);
