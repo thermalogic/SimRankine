@@ -34,6 +34,7 @@ public:
   string energy;
   Port *iPort;
   Port *oPort;
+  Port *ePort; // turbineex1
   mapPortObj portdict;
 
   virtual void setportaddress() = 0;

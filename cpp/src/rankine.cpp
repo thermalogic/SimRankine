@@ -6,7 +6,7 @@ rankine.cpp
      * vector<tupConnector>  Connectors = {} 
 */
 
-#include "rankine.hpp "
+#include "rankine.hpp"
 
 RankineCycle::~RankineCycle()
 {
@@ -30,7 +30,7 @@ RankineCycle::RankineCycle(vector<umComponent> dictComps, vector<tupConnector> v
         }
         catch (exception &e)
         {
-            cout <<name<<"\t"<<e.what() << endl;
+            cout << name << "\t" << e.what() << endl;
         }
     }
     // 2 connectors
@@ -51,41 +51,50 @@ void RankineCycle::ComponentState()
 void RankineCycle::ComponentBalance()
 {
     list<string> keys;
+    vector<bool> balanceok;
     int devnum = 0;
     for (mComponentObj::iterator iter = Comps.begin(); iter != Comps.end(); iter++)
     {
         keys.push_back(iter->first);
+        balanceok.push_back(false);
         devnum += 1;
     };
-    bool deviceok = false;
-    int i = 0;
-    while ((deviceok == false) & (i <= devnum))
+    int numdeviceok = 0;
+    int numiter = 0;
+    while ((numiter <= devnum) & (numdeviceok <= devnum))
     {
+        int i = 0;
         for (auto &item : keys)
         {
-            try
+            if (balanceok[i] == false)
             {
-                Comps[item]->balance();
-                keys.remove(item); // delect the balanced compoment 
-            }
-            catch (...)
-            {
+                try
+                {
+                    Comps[item]->balance();
+                    // keys.remove(item); // delect the balanced compoment
+                    balanceok[i] = true;
+                    numdeviceok = +1;
+                }
+                catch (...)
+                {
+                };
             };
             i += 1;
         };
-        if (keys.size() == 0)
-        {
-            deviceok = true;
-        };
+        numiter += 1;
     };
-
     // for debug : check the failed devices
-    if (keys.size() > 0)
+    if (numdeviceok < devnum)
     {
-        for (auto &item : keys) 
+        int i = 0;
+        for (auto &item : keys)
         {
-            cout<<item<<"\t";
-        }; 
+            if (balanceok[i] == false)
+            {
+                cout << item << "\t";
+            }
+            i += 1;
+        };
     };
 }
 
@@ -128,7 +137,7 @@ string RankineCycle::resultstr()
     result += "\tWorkRequired(kW): " + to_string_with_precision<double>(totalworkRequired, 3) + "\n";
     result += "\tNetPower(kW): " + to_string_with_precision<double>(netpoweroutput, 3) + "\n";
     result += "\tHeatAdded(kW): " + to_string_with_precision<double>(totalheatAdded, 3) + "\n";
-    result += "\tThe Cycle Efficiency(%): " + to_string_with_precision<double>(100.0*efficiency, 3) + "\n";
+    result += "\tThe Cycle Efficiency(%): " + to_string_with_precision<double>(100.0 * efficiency, 3) + "\n";
     return result;
 }
 

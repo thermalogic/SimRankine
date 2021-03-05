@@ -2,9 +2,16 @@
 BIN=./bin/
 INC=./include/
 LIBFLAGS=-L./bin -lseuif97
+ifneq ($(OS),Windows_NT)
+	UNAME_S := $(shell uname -s)
+    ifeq ($(UNAME_S),Linux)
+        LIBFLAGS += -Wl,-rpath=./bin
+    endif
+endif
+
 CFLAGES=-std=c++17 -O3  
 
-SRCS=./demorankine81.cpp \
+SRCS=./rankinesim.cpp \
 	./src/rankine.cpp \
 	./src/port.cpp \
 	./src/connector.cpp \
@@ -13,7 +20,7 @@ SRCS=./demorankine81.cpp \
 	./src/pump.cpp \
 	./src/boiler.cpp 
 
-OUTFILE=./bin/rankine81
+OUTFILE=./bin/rankinesim
 
 all: $(OUTFILE)
 	$(OUTFILE)

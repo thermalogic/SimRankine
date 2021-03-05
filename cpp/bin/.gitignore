@@ -3,3 +3,4 @@
 # Except this file
 !.gitignore
 !libseuif97.dll
+!libseuif97.so
