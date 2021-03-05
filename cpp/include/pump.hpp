@@ -10,7 +10,6 @@
 class Pump : public CompBase
 {
 public:
-   double workRequired;
    double ef;
    // methods
    Pump(umComponent dictComp);

@@ -10,8 +10,7 @@
 class Boiler : public CompBase
 {
 public:
-    double heatAdded;
-    // methods
+   // methods
     Boiler(umComponent dictComp);
     ~Boiler();
 

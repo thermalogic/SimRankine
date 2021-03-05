@@ -11,8 +11,6 @@ class TurbineEx0 : public CompBase
 {
 public:
   double ef;
-  double workExtracted;
-
   // methods
   TurbineEx0(umComponent dictComp);
   ~TurbineEx0();
