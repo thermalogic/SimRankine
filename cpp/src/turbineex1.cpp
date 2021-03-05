@@ -18,7 +18,6 @@ TurbineEx1::TurbineEx1(umComponent dictComp)
                 {"oPort", oPort},
                 {"ePort", ePort}};
     energy = "workExtracted";
-    
 }
 
 TurbineEx1::~TurbineEx1()
@@ -31,34 +30,36 @@ TurbineEx1::~TurbineEx1()
 void TurbineEx1::state()
 {
     if (ef == 1.0)
-    { ePort->s = iPort->s;
-      ePort->ps();
-      oPort->s =iPort->s;
-      oPort->ps();
+    {
+        ePort->s = iPort->s;
+        ePort->ps();
+        oPort->s = iPort->s;
+        oPort->ps();
     }
     else
-    { double isoh = seups(ePort->p, iPort->s,4);
-      ePort->h = iPort->h-ef * (iPort->h - isoh);
-      ePort->ph();
-      isoh = seups(oPort->p, ePort->s,4);
-      oPort->h =ePort->h -ef * (ePort->h - isoh);
-      oPort->ph();
+    {
+        double isoh = seups(ePort->p, iPort->s, 4);
+        ePort->h = iPort->h - ef * (iPort->h - isoh);
+        ePort->ph();
+        isoh = seups(oPort->p, ePort->s, 4);
+        oPort->h = ePort->h - ef * (ePort->h - isoh);
+        oPort->ph();
     };
 }
 
 int TurbineEx1::balance()
 {
- 
-   oPort->fdot =iPort->fdot - ePort->fdot;
-   double ienergy =iPort->fdot *iPort->h;
-   double oenergy = ePort->fdot *ePort->h +oPort->fdot * oPort->h;
-   workExtracted = ienergy - oenergy;
-   if (isnan(workExtracted))
-   {
-       return 0;
-   }
-   else
-       return 1;
+
+    oPort->fdot = iPort->fdot - ePort->fdot;
+    double ienergy = iPort->fdot * iPort->h;
+    double oenergy = ePort->fdot * ePort->h + oPort->fdot * oPort->h;
+    workExtracted = ienergy - oenergy;
+    if (isnan(workExtracted))
+    {
+        return 0;
+    }
+    else
+        return 1;
 }
 
 void TurbineEx1::setportaddress()

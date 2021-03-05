@@ -46,7 +46,6 @@ Port::Port(mPort curmPort)
    s = NAN;
    mdot = NAN;
 
-   
    if (!isnan(p) & !isnan(t))
    {
       pt();
@@ -59,13 +58,13 @@ Port::Port(mPort curmPort)
       }
       else
       {
-          if (!isnan(p) & !isnan(x))
+         if (!isnan(p) & !isnan(x))
          {
             px();
          }
       }
    }
-}   
+}
 
 Port::~Port()
 {

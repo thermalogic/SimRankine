@@ -15,7 +15,6 @@ TurbineEx0::TurbineEx0(umComponent dictComp)
     portdict = {{"iPort", iPort},
                 {"oPort", oPort}};
     energy = "workExtracted";
-    
 }
 
 TurbineEx0::~TurbineEx0()
@@ -33,9 +32,9 @@ void TurbineEx0::state()
     }
     else
     {
-       double isoh = seups(oPort->p,iPort->s,4);
-       oPort->h = iPort->h - ef * (iPort->h - isoh);
-       oPort->ph();
+        double isoh = seups(oPort->p, iPort->s, 4);
+        oPort->h = iPort->h - ef * (iPort->h - isoh);
+        oPort->ph();
     }
 }
 

@@ -28,7 +28,6 @@ OpenedHeaterDw0::~OpenedHeaterDw0()
 
 void OpenedHeaterDw0::state()
 {
-   
 }
 
 int OpenedHeaterDw0::balance()
@@ -36,11 +35,11 @@ int OpenedHeaterDw0::balance()
     // energy balance equation
     double qes1 = iPort->h - oPort_fw->h;
     double qfw1 = oPort_fw->h - iPort_fw->h;
-    iPort->fdot =oPort_fw->fdot * qfw1 / (qes1 + qfw1);
+    iPort->fdot = oPort_fw->fdot * qfw1 / (qes1 + qfw1);
     //mass balance equation
-    iPort_fw->fdot =oPort_fw->fdot - iPort->fdot;
-    
-    heatAdded = iPort_fw->fdot *qfw1;
+    iPort_fw->fdot = oPort_fw->fdot - iPort->fdot;
+
+    heatAdded = iPort_fw->fdot * qfw1;
     heatExtracted = iPort->fdot * qes1;
     if (isnan(heatAdded))
     {
@@ -70,5 +69,5 @@ string OpenedHeaterDw0::resultstring()
     result += "\n" + oPort_fw->resultstring();
     result += "\nheatAdded(kJ/kg): " + to_string_with_precision<double>(heatAdded, 3);
     result += "\nheatExtracted(kJ/kg): " + to_string_with_precision<double>(heatExtracted, 3) + "\n";
-   return result;
+    return result;
 }
