@@ -71,7 +71,6 @@ void RankineCycle::ComponentBalance()
                 try
                 {
                     Comps[item]->balance();
-                    // keys.remove(item); // delect the balanced compoment
                     balanceok[i] = true;
                     numdeviceok = +1;
                 }
