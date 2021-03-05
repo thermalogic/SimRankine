@@ -42,8 +42,7 @@ Components Components85 = {
     {{"name", "Boiler1"},
      {"classstr", "Boiler"},
      {"iPort", (mPort){{"p", NAN}, {"t", NAN}, {"x", NAN}, {"fdot", NAN}}},
-     {"oPort", (mPort){{"p", 8.0}, {"t", 480.0}, {"x", NAN}, {"fdot", 1.0}}}}
-};
+     {"oPort", (mPort){{"p", 8.0}, {"t", 480.0}, {"x", NAN}, {"fdot", 1.0}}}}};
 
 Connectors Connectors85 = {
     {{"Boiler1", "oPort"}, {"TurbineEx1", "iPort"}},

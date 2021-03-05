@@ -15,7 +15,6 @@ Boiler::Boiler(umComponent dictComp)
     portdict = {{"iPort", iPort},
                 {"oPort", oPort}};
     energy = "heatAdded";
-   
 }
 
 Boiler::~Boiler()
@@ -26,7 +25,6 @@ Boiler::~Boiler()
 
 void Boiler::state()
 {
-   
 }
 
 int Boiler::balance()

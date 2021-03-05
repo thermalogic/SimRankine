@@ -8,24 +8,24 @@
 #include "common.hpp"
 
 Components Components81 = {
-        {{"name", "Turbine1"},
-         {"classstr", "TurbineEx0"},
-         {"ef", 1.0},
-         {"iPort", (mPort){{"p", NAN}, {"t", NAN}, {"x", NAN}, {"fdot", NAN}}},
-         {"oPort", (mPort){{"p", 0.008}, {"t", NAN}, {"x", NAN}, {"fdot", NAN}}}},
-        {{"name", "Condenser"},
-         {"classstr", "Condenser"},
-         {"iPort", (mPort){{"p", NAN}, {"t", NAN}, {"x", NAN}, {"fdot", NAN}}},
-         {"oPort", (mPort){{"p", 0.008}, {"t", NAN}, {"x", 0.0}, {"fdot", NAN}}}},
-        {{"name", "Pump1"},
-         {"classstr", "Pump"},
-         {"ef", 1.0},
-         {"iPort", (mPort){{"p", NAN}, {"t", NAN}, {"x", NAN}, {"fdot", NAN}}},
-         {"oPort", (mPort){{"p", 8.0}, {"t", NAN}, {"x", NAN}, {"fdot", NAN}}}},
-        {{"name", "Boiler1"},
-         {"classstr", "Boiler"},
-         {"iPort", (mPort){{"p", NAN}, {"t", NAN}, {"x", NAN}, {"fdot", NAN}}},
-         {"oPort", (mPort){{"p", 8.0}, {"t", NAN}, {"x", 1.0}, {"fdot", 1.0}}}}
+    {{"name", "Turbine1"},
+     {"classstr", "TurbineEx0"},
+     {"ef", 1.0},
+     {"iPort", (mPort){{"p", NAN}, {"t", NAN}, {"x", NAN}, {"fdot", NAN}}},
+     {"oPort", (mPort){{"p", 0.008}, {"t", NAN}, {"x", NAN}, {"fdot", NAN}}}},
+    {{"name", "Condenser"},
+     {"classstr", "Condenser"},
+     {"iPort", (mPort){{"p", NAN}, {"t", NAN}, {"x", NAN}, {"fdot", NAN}}},
+     {"oPort", (mPort){{"p", 0.008}, {"t", NAN}, {"x", 0.0}, {"fdot", NAN}}}},
+    {{"name", "Pump1"},
+     {"classstr", "Pump"},
+     {"ef", 1.0},
+     {"iPort", (mPort){{"p", NAN}, {"t", NAN}, {"x", NAN}, {"fdot", NAN}}},
+     {"oPort", (mPort){{"p", 8.0}, {"t", NAN}, {"x", NAN}, {"fdot", NAN}}}},
+    {{"name", "Boiler1"},
+     {"classstr", "Boiler"},
+     {"iPort", (mPort){{"p", NAN}, {"t", NAN}, {"x", NAN}, {"fdot", NAN}}},
+     {"oPort", (mPort){{"p", 8.0}, {"t", NAN}, {"x", 1.0}, {"fdot", 1.0}}}}
 
 };
 

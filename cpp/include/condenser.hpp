@@ -14,12 +14,11 @@ public:
   double heatExtracted;
   Condenser(umComponent dictComp);
   ~Condenser();
- 
+
   void setportaddress();
   void state();
   int balance();
   string resultstring();
- 
 };
 
 #endif /* Condenser_hpp */

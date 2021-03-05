@@ -34,7 +34,7 @@ public:
   double x;
   double fdot;
   double mdot;
- 
+
   // methods
   Port(mPort curmPort);
   ~Port();

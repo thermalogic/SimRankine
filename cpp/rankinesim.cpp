@@ -20,4 +20,4 @@ int main()
     curcycle->outresults();
   };
   return 0;
- }
+}

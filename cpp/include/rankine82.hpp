@@ -7,11 +7,10 @@
 
 #include "common.hpp"
 
-
 Components Components82 = {
     {{"name", "Turbine1"},
      {"classstr", "TurbineEx0"},
-     {"ef",0.85},
+     {"ef", 0.85},
      {"iPort", (mPort){{"p", NAN}, {"t", NAN}, {"x", NAN}, {"fdot", NAN}}},
      {"oPort", (mPort){{"p", 0.008}, {"t", NAN}, {"x", NAN}, {"fdot", NAN}}}},
     {{"name", "Condenser"},

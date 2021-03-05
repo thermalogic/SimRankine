@@ -34,11 +34,15 @@ public:
   string energy;
   Port *iPort;
   Port *oPort;
-  Port *ePort; // turbineex1
+  Port *ePort;    // turbineex1
   Port *iPort_fw; // opendedheaterdw0
   Port *oPort_fw; // opendedheaterdw0
 
   mapPortObj portdict;
+
+  double workExtracted;
+  double heatAdded;
+  double workRequired;
 
   virtual void setportaddress() = 0;
   virtual void state() = 0;

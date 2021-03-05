@@ -10,17 +10,17 @@
 class TurbineEx0 : public CompBase
 {
 public:
-    double ef;
-    double workExtracted;
+  double ef;
+  double workExtracted;
 
-    // methods
-    TurbineEx0(umComponent dictComp);
-    ~TurbineEx0();
+  // methods
+  TurbineEx0(umComponent dictComp);
+  ~TurbineEx0();
 
-    void setportaddress();
-    void state();
-    int balance();
-    string resultstring();
+  void setportaddress();
+  void state();
+  int balance();
+  string resultstring();
 };
 
 #endif /* TurbineEx0_hpp */
