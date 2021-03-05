@@ -15,6 +15,7 @@ TurbineEx0::TurbineEx0(umComponent dictComp)
     portdict = {{"iPort", iPort},
                 {"oPort", oPort}};
     energy = "workExtracted";
+    
 }
 
 TurbineEx0::~TurbineEx0()
@@ -38,7 +39,7 @@ void TurbineEx0::state()
     }
 }
 
-void TurbineEx0::balance()
+int TurbineEx0::balance()
 {
     // mass and energy balance
     // mass balance
@@ -53,6 +54,12 @@ void TurbineEx0::balance()
     }
     //energy
     workExtracted = iPort->fdot * (iPort->h - oPort->h);
+    if (isnan(workExtracted))
+    {
+        return 0;
+    }
+    else
+        return 1;
 }
 
 void TurbineEx0::setportaddress()

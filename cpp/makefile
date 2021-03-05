@@ -16,6 +16,8 @@ SRCS=./rankinesim.cpp \
 	./src/port.cpp \
 	./src/connector.cpp \
 	./src/turbineex0.cpp \
+	./src/turbineex1.cpp \
+	./src/openedheaterdw0.cpp \
 	./src/condenser.cpp \
 	./src/pump.cpp \
 	./src/boiler.cpp 

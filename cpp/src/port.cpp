@@ -44,24 +44,28 @@ Port::Port(mPort curmPort)
    }
    h = NAN;
    s = NAN;
-
    mdot = NAN;
 
-   if (!isnan(t) & !isnan(x))
-   {
-      tx();
-   }
-
+   
    if (!isnan(p) & !isnan(t))
    {
       pt();
    }
-
-   if (!isnan(p) & !isnan(x))
+   else
    {
-      px();
+      if (!isnan(t) & !isnan(x))
+      {
+         tx();
+      }
+      else
+      {
+          if (!isnan(p) & !isnan(x))
+         {
+            px();
+         }
+      }
    }
-}
+}   
 
 Port::~Port()
 {
@@ -76,6 +80,7 @@ void Port::pt()
 {
    h = seupt(p, t, 4);
    s = seupt(p, t, 5);
+   x = seupt(p, t, 15);
 }
 
 void Port::tx()

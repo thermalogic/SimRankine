@@ -31,7 +31,7 @@ void Pump::state()
     oPort->ph();
 }
 
-void Pump::balance()
+int Pump::balance()
 {
     // mass and energy balance
     // mass balance
@@ -46,6 +46,12 @@ void Pump::balance()
     }
 
     workRequired = iPort->fdot * (oPort->h - iPort->h);
+    if (isnan(workRequired))
+    {
+        return 0;
+    }
+    else
+        return 1;
 }
 
 void Pump::setportaddress()

@@ -10,10 +10,12 @@ Boiler::Boiler(umComponent dictComp)
 {
     name = any_cast<const char *>(dictComp["name"]);
     iPort = new Port(any_cast<mPort>(dictComp["iPort"]));
+    //
     oPort = new Port(any_cast<mPort>(dictComp["oPort"]));
     portdict = {{"iPort", iPort},
                 {"oPort", oPort}};
-    energy = "HeatAdded";
+    energy = "heatAdded";
+   
 }
 
 Boiler::~Boiler()
@@ -24,10 +26,10 @@ Boiler::~Boiler()
 
 void Boiler::state()
 {
-    
+   
 }
 
-void Boiler::balance()
+int Boiler::balance()
 {
     // mass and energy balance
     // mass balance
@@ -41,6 +43,12 @@ void Boiler::balance()
             iPort->fdot = oPort->fdot;
     }
     heatAdded = iPort->fdot * (oPort->h - iPort->h);
+    if (isnan(heatAdded))
+    {
+        return 0;
+    }
+    else
+        return 1;
 }
 
 void Boiler::setportaddress()

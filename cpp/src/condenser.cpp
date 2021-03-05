@@ -26,7 +26,7 @@ void Condenser::state()
     
 }
 
-void Condenser::balance()
+int Condenser::balance()
 {
     // mass and energy balance
     // mass balance
@@ -41,6 +41,14 @@ void Condenser::balance()
     };
 
     heatExtracted =iPort->fdot * (iPort->h - oPort->h);
+    if (isnan(heatExtracted))
+    {
+       return 0;
+    }
+    else
+    {
+        return 1;
+    }   
 }
 
 void Condenser:: setportaddress()

@@ -16,6 +16,8 @@
 #include "condenser.hpp"
 #include "pump.hpp"
 #include "turbineex0.hpp"
+#include "turbineex1.hpp"
+#include "openedheaterdw0.hpp"
 #include <list>
 #include <typeinfo>
 #include <functional>
@@ -39,6 +41,8 @@ public:
         register_type<Condenser>("Condenser");
         register_type<Pump>("Pump");
         register_type<TurbineEx0>("TurbineEx0");
+        register_type<TurbineEx1>("TurbineEx1");
+        register_type<OpenedHeaterDw0>("OpenedHeaterDw0");
     }
 };
 

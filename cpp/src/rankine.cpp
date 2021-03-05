@@ -61,6 +61,7 @@ void RankineCycle::ComponentBalance()
     };
     int numdeviceok = 0;
     int numiter = 0;
+    int rtn;
     while ((numiter <= devnum) & (numdeviceok <= devnum))
     {
         int i = 0;
@@ -70,9 +71,13 @@ void RankineCycle::ComponentBalance()
             {
                 try
                 {
-                    Comps[item]->balance();
-                    balanceok[i] = true;
-                    numdeviceok = +1;
+                    rtn=Comps[item]->balance();
+                    if (rtn==1)
+                    {
+                      balanceok[i] = true;
+                      numdeviceok = +1;
+                    }
+                    
                 }
                 catch (...)
                 {
@@ -110,11 +115,23 @@ void RankineCycle::Simulator()
     {
         if (iter->second->energy == "workExtracted")
         {
-            totalworkExtracted += ((TurbineEx0 *)iter->second)->workExtracted;
-        }
-        else
+            try
+            {
+                totalworkExtracted += ((TurbineEx0 *)iter->second)->workExtracted;
+            }
+            catch (...)
+            {
+              try
+                {
+                    totalworkExtracted += ((TurbineEx1 *)iter->second)->workExtracted;
+                }
+                catch (...)
+                {
+                };
+            };
+        };
+        if (iter->second->energy == "heatAdded")
         {
-            if (iter->second->energy == "HeatAdded")
                 totalheatAdded = ((Boiler *)iter->second)->heatAdded;
         };
         if (iter->second->energy == "workRequired")

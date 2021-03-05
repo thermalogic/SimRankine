@@ -17,7 +17,7 @@ public:
 
     void setportaddress();
     void state();
-    void balance();
+    int balance();
     string resultstring();
 };
 

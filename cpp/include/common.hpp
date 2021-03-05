@@ -35,15 +35,23 @@ public:
   Port *iPort;
   Port *oPort;
   Port *ePort; // turbineex1
+  Port *iPort_fw; // opendedheaterdw0
+  Port *oPort_fw; // opendedheaterdw0
+
   mapPortObj portdict;
 
   virtual void setportaddress() = 0;
   virtual void state() = 0;
-  virtual void balance() = 0;
+  virtual int balance() = 0;
   virtual string resultstring() = 0;
 };
 
 typedef unordered_map<string, CompBase *> mComponentObj;
+
+typedef vector<umComponent> Components;
+typedef vector<tupConnector> Connectors;
+typedef tuple<Components, Connectors> rankinecycle;
+typedef vector<rankinecycle> rankinecycles;
 
 template <typename T>
 string to_string_with_precision(const T a_value, const int n = 6)
