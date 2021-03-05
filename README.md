@@ -55,5 +55,4 @@ Chapter 8 : Vapour Power Systems
   
 ## Cite as
 
-Cheng Maohua. (2020, October 24). thermalogic/SimRankine 1.0.2 (Version 1.0.2). Zenodo. http://doi.org/10.5281/zenodo.4124811
-
+Cheng Maohua. (2021, March 5). thermalogic/SimRankine: (Version 2.0.0). Zenodo. http://doi.org/10.5281/zenodo.4585581
