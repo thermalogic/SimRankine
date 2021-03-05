@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/306221786.svg)](https://zenodo.org/badge/latestdoi/306221786)
 
-The SimRankine is the demo steady-state simulator of Rankine cycle. The demo simulator is available in Python, C++ and Modelica
+The SimRankine is the demo steady-state simulator of Rankine cycle in Python, C++ and Modelica
 
 * [Python](./python)
 
