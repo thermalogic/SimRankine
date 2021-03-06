@@ -10,11 +10,10 @@ Boiler::Boiler(umComponent dictComp)
 {
     name = any_cast<const char *>(dictComp["name"]);
     iPort = new Port(any_cast<mPort>(dictComp["iPort"]));
-    //
     oPort = new Port(any_cast<mPort>(dictComp["oPort"]));
     portdict = {{"iPort", iPort},
                 {"oPort", oPort}};
-    energy = "heatAdded";
+    energy = HEATADDED;
 }
 
 Boiler::~Boiler()

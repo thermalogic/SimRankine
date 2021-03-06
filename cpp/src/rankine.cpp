@@ -71,13 +71,12 @@ void RankineCycle::ComponentBalance()
             {
                 try
                 {
-                    rtn=Comps[item]->balance();
-                    if (rtn==1)
+                    rtn = Comps[item]->balance();
+                    if (rtn == 1)
                     {
-                      balanceok[i] = true;
-                      numdeviceok = +1;
+                        balanceok[i] = true;
+                        numdeviceok = +1;
                     }
-                    
                 }
                 catch (...)
                 {
@@ -113,18 +112,16 @@ void RankineCycle::Simulator()
 
     for (mComponentObj::iterator iter = Comps.begin(); iter != Comps.end(); iter++)
     {
-        if (iter->second->energy == "workExtracted")
+        switch (iter->second->energy)
         {
+        case WORKEXTRACTED:
             totalworkExtracted += iter->second->workExtracted;
-           
-        };
-        if (iter->second->energy == "heatAdded")
-        {
-             totalheatAdded += iter->second->heatAdded;
-        };
-        if (iter->second->energy == "workRequired")
-        {
-            totalworkRequired +=iter->second->workRequired;
+            break;
+        case HEATADDED:
+            totalheatAdded += iter->second->heatAdded;
+            break;
+        case WORKREQUIRED:
+            totalworkRequired += iter->second->workRequired;
         };
     };
     netpoweroutput = totalworkExtracted - totalworkRequired;

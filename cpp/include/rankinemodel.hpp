@@ -10,6 +10,9 @@
 #include "rankine82.hpp"
 #include "rankine85.hpp"
 
-rankinecycles cycles = {rankine81, rankine82, rankine85};
+//rankinecycles cycles = {rankine81,rankine82};
+//rankinecycles cycles = {rankine85};
+
+rankinecycles cycles= {rankine81, rankine82, rankine85};
 
 #endif /* RANKINEMODEL_hpp */

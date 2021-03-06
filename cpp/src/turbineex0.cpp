@@ -14,7 +14,7 @@ TurbineEx0::TurbineEx0(umComponent dictComp)
     oPort = new Port(any_cast<mPort>(dictComp["oPort"]));
     portdict = {{"iPort", iPort},
                 {"oPort", oPort}};
-    energy = "workExtracted";
+    energy = WORKEXTRACTED;
 }
 
 TurbineEx0::~TurbineEx0()

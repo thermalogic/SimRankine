@@ -17,7 +17,7 @@ TurbineEx1::TurbineEx1(umComponent dictComp)
     portdict = {{"iPort", iPort},
                 {"oPort", oPort},
                 {"ePort", ePort}};
-    energy = "workExtracted";
+    energy = WORKEXTRACTED;
 }
 
 TurbineEx1::~TurbineEx1()

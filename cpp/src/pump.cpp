@@ -13,7 +13,7 @@ Pump::Pump(umComponent dictComp)
     oPort = new Port(any_cast<mPort>(dictComp["oPort"]));
     portdict = {{"iPort", iPort},
                 {"oPort", oPort}};
-    energy = "workRequired";
+    energy = WORKREQUIRED;
 }
 
 Pump::~Pump()

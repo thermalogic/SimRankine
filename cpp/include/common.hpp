@@ -21,6 +21,14 @@ COMMON_HPP
 
 using namespace std;
 
+enum ENERGY
+{
+  WORKEXTRACTED = 1,
+  HEATADDED,
+  WORKREQUIRED,
+  INTERNAL
+};
+
 typedef unordered_map<string, any> umComponent;
 // port
 typedef tuple<string, string> tupPort;
@@ -31,7 +39,7 @@ class CompBase
 {
 public:
   string name;
-  string energy;
+  ENERGY energy;
   Port *iPort;
   Port *oPort;
   Port *ePort;    // turbineex1
@@ -40,9 +48,10 @@ public:
 
   mapPortObj portdict;
 
-  double workExtracted;
-  double heatAdded;
-  double workRequired;
+  //for total
+  double workExtracted; //turbines
+  double heatAdded;     // boilers
+  double workRequired;  //pumps
 
   virtual void setportaddress() = 0;
   virtual void state() = 0;

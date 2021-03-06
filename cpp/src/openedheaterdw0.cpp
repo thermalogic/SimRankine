@@ -16,7 +16,7 @@ OpenedHeaterDw0::OpenedHeaterDw0(umComponent dictComp)
     portdict = {{"iPort", iPort},
                 {"iPort_fw", iPort_fw},
                 {"oPort_fw", oPort_fw}};
-    energy = "internel";
+    energy = INTERNAL;
 }
 
 OpenedHeaterDw0::~OpenedHeaterDw0()

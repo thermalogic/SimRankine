@@ -13,6 +13,7 @@ Condenser::Condenser(umComponent dictComp)
     oPort = new Port(any_cast<mPort>(dictComp["oPort"]));
     portdict = {{"iPort", iPort},
                 {"oPort", oPort}};
+    energy = INTERNAL;
 }
 
 Condenser::~Condenser()
@@ -23,7 +24,6 @@ Condenser::~Condenser()
 
 void Condenser::state()
 {
-    
 }
 
 int Condenser::balance()
@@ -40,23 +40,23 @@ int Condenser::balance()
             iPort->fdot = oPort->fdot;
     };
 
-    heatExtracted =iPort->fdot * (iPort->h - oPort->h);
+    heatExtracted = iPort->fdot * (iPort->h - oPort->h);
     if (isnan(heatExtracted))
     {
-       return 0;
+        return 0;
     }
     else
     {
         return 1;
-    }   
+    }
 }
 
-void Condenser:: setportaddress()
+void Condenser::setportaddress()
 {
-  if (iPort!=portdict["iPort"])
-      iPort=portdict["iPort"];
-  if (oPort!=portdict["oPort"])
-      oPort=portdict["oPort"];
+    if (iPort != portdict["iPort"])
+        iPort = portdict["iPort"];
+    if (oPort != portdict["oPort"])
+        oPort = portdict["oPort"];
 }
 
 string Condenser::resultstring()
