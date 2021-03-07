@@ -133,12 +133,15 @@ void RankineCycle::Simulator()
 string RankineCycle::resultstr()
 {
     string result;
-    result = "\n --- The Rankine Cycle ---\n";
-    result += "\tTurbine  Work(kW): " + to_string_with_precision<double>(totalworkExtracted, 3) + "\n";
-    result += "\tWorkRequired(kW): " + to_string_with_precision<double>(totalworkRequired, 3) + "\n";
-    result += "\tNetPower(kW): " + to_string_with_precision<double>(netpoweroutput, 3) + "\n";
-    result += "\tHeatAdded(kW): " + to_string_with_precision<double>(totalheatAdded, 3) + "\n";
+    result = "\n --- The Rankine Cycle(1kg mass) ---\n";
+    result += "\tworkExtracted(kJ/Kg): " + to_string_with_precision<double>(totalworkExtracted, 3) + "\n";
+    result += "\tWorkRequired(kJ/Kg): " + to_string_with_precision<double>(totalworkRequired, 3) + "\n";
+    result += "\tNetPower(kJ/Kg): " + to_string_with_precision<double>(netpoweroutput, 3) + "\n";
+    result += "\tHeatAdded(kJ/Kg): " + to_string_with_precision<double>(totalheatAdded, 3) + "\n";
     result += "\tThe Cycle Efficiency(%): " + to_string_with_precision<double>(100.0 * efficiency, 3) + "\n";
+    result += "\tHeat Rate(kJ/kWh): " + to_string_with_precision<double>(HeatRate, 3) + "\n";
+    result += "\tSteam Rate(kg/kWh): " + to_string_with_precision<double>(SteamRate, 3) + "\n";
+
     return result;
 }
 

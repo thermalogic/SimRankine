@@ -1,5 +1,5 @@
 /*
- The Rankine cycle model 
+ The Rankine cycle model 81
 
 */
 #ifndef RANKINE81_HPP

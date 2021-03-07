@@ -1,5 +1,5 @@
 /*
- The Rankine cycle simulator :81,82
+ The Rankine cycle simulator
 
 */
 #include "rankinemodel.hpp"
