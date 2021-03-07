@@ -1,9 +1,9 @@
 /*
-   xpansionValveExpansionValve.cpp
+   pump.hpp
 */
 
-#ifndef EXPANSIONVALVE_HPP
-#define EXPANSIONVALVE_HPP
+#ifndef PUMP_HPP
+#define PUMP_HPP
 
 #include "common.hpp"
 
@@ -21,4 +21,4 @@ public:
    string resultstring();
 };
 
-#endif /* EXPANSIONVALVE_hpp */
+#endif /* PUMP_hpp */
