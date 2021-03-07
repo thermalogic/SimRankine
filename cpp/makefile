@@ -1,6 +1,8 @@
 
 BIN=./bin/
-INC=./include/
+INC=./include/ \
+	./model/
+
 LIBFLAGS=-L./bin -lseuif97
 ifneq ($(OS),Windows_NT)
 	UNAME_S := $(shell uname -s)
@@ -28,7 +30,7 @@ all: $(OUTFILE)
 	$(OUTFILE)
 
 $(OUTFILE): $(SRCS)  
-	g++ $(CFLAGES) -o $@ $^ -I$(INC) $(LIBFLAGS)
+	g++ $(CFLAGES) -o $@ $^ $(addprefix -I,$(INC)) $(LIBFLAGS)
 
 run:
 	$(OUTFILE)
