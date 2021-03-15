@@ -63,6 +63,6 @@ string Boiler::resultstring()
     result += "\n" + Port::title;
     result += "\n" + iPort->resultstring();
     result += "\n" + oPort->resultstring();
-    result += "\nThe Heat added(kW): " + to_string_with_precision<double>(heatAdded, 3) + "\n";
+    result += "\nheatAdded(kJ/kg)): " + to_string_with_precision<double>(heatAdded, 3) + "\n";
     return result;
 }

@@ -80,6 +80,6 @@ string TurbineEx1::resultstring()
     result += "\n" + iPort->resultstring();
     result += "\n" + oPort->resultstring();
     result += "\n" + ePort->resultstring();
-    result += "\nThe Turbine Work(kW): " + to_string_with_precision<double>(workExtracted, 3) + "\n";
+    result += "\nworkExtracted(kJ/kg): " + to_string_with_precision<double>(workExtracted, 3) + "\n";
     return result;
 }
