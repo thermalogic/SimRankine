@@ -4,9 +4,9 @@
 
 The SimRankine is the demo steady-state simulator of Rankine cycle in Python, C++ and Modelica
 
-* [Python](./python)
+* [Python with the sequential-modular approach](./python)
 
-* [C++](./cpp)
+* [C++ with the sequential-modular approach](./cpp)
 
 * [Modelica](./mo)
 
