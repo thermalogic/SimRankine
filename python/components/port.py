@@ -8,27 +8,17 @@ class Port:
     title = ('{:^6} \t{:<8} \t{:>8} \t{:>10} \t{:>10} \t{:^10} \t{:^6} \t{:>10}'.format
              ("Index", "P(MPa)", "T(°C)", "H(kJ/kg)", "S(kJ/kg.K)",  "Quality", "FDOT","MDOT(kg/s)"))
 
+    kwargs = {'p': None, 't': None, 'x': None,'fdot': None}
     def __init__(self, dictnode):
         """ create the node object"""
+        kwargs = Port.kwargs.copy()
+        kwargs.update(dictnode)
+        for key in Port.kwargs.keys():
+            if type(kwargs[key]) is int:
+                kwargs[key] = float(kwargs[key])
+        self.__dict__.update(kwargs)
+
         self.index = None
-        try: 
-           self.p =  float(dictnode['p'])
-        except:  
-           self.p=None  
-        try:   
-           self.t =  float(dictnode['t'])
-        except:  
-           self.t=None 
-        try: 
-           self.x = float(dictnode['x'])
-        except:  
-           self.x=None  
-
-        try:
-           self.fdot =  float(dictnode['fdot'])
-        except:
-           self.fdot = None
-
         self.h = None
         self.s = None
         self.v = None

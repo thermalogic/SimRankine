@@ -35,10 +35,10 @@ class RankineCycle:
         for curdev in dictcomps:
             self.comps[curdev['name']] = compdict[curdev['devtype']](curdev)
 
-        self.curcon=Connector()
+        self.conn=Connector()
         # 2 use the dictconnectors to set the nodes value and alias between the item of nodes and the port of devices
         for tupconnector in listconnectors:
-            self.curcon.AddConnector(tupconnector, self.comps)
+            self.conn.add_node(tupconnector, self.comps)
 
         self.totalworkExtracted = 0
         self.totalworkRequired = 0
@@ -115,7 +115,7 @@ class RankineCycle:
             self.Wcycledot = self.mdot * \
                 self.netpoweroutput / (1000.0 * 3600.0)
 
-        for item in self.curcon.nodes:
+        for item in self.conn.nodes:
             item[0].calmdot(self.mdot)
 
         self.totalWExtracted = 0

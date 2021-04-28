@@ -19,7 +19,7 @@ def OutFiles(cycle, outfilename=None):
    
     # 2 output nodes
     print(Port.title)
-    for item in cycle.curcon.nodes:
+    for item in cycle.conn.nodes:
         print(item[0])
     # 3 output devices
     for key in cycle.comps:
