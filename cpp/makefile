@@ -1,7 +1,8 @@
 
 BIN=./bin/
 INC=./include/ \
-	./model/
+	./model/ \
+	./src/
 
 LIBFLAGS=-L./bin -lseuif97
 ifneq ($(OS),Windows_NT)
@@ -11,7 +12,7 @@ ifneq ($(OS),Windows_NT)
     endif
 endif
 
-CFLAGES=-std=c++17 -O3  
+CXXFLAGES=-std=c++17 -O3  
 
 SRCS=./rankinesim.cpp \
 	./src/rankine.cpp \
@@ -30,7 +31,7 @@ all: $(OUTFILE)
 	$(OUTFILE)
 
 $(OUTFILE): $(SRCS)  
-	g++ $(CFLAGES) -o $@ $^ $(addprefix -I,$(INC)) $(LIBFLAGS)
+	g++ $(CXXFLAGES) -o $@ $^ $(addprefix -I,$(INC)) $(LIBFLAGS)
 
 run:
 	$(OUTFILE)
