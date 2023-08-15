@@ -27,12 +27,24 @@ python  rankineapp.py
 
 ## C++
 
-type `make` in the terminal of `./cpp` to Build and Run
+### Prerequisites：the seuif97 dynamic library
+
+1. building the dynamic library : https://github.com/thermalogic/RustSEUIF97
+2. put the dynamic library  in `./bin`
+
+### Run
+
+* make: 
 
 ```bash
->make
+make
 ```
 
+* cmake: 
+```bash
+cmake -B ./build/   
+cmake --build ./build/ --config Release
+```
 ## Modelica
 
 **Prerequisites**：Dymola
@@ -55,4 +67,4 @@ Chapter 8 : Vapour Power Systems
   
 ## Cite as
 
-Cheng Maohua. (2021, March 5). thermalogic/SimRankine: (Version 2.0.0). Zenodo. http://doi.org/10.5281/zenodo.4585581
+* Cheng Maohua. (2021). SimRankine: the demo steady-state simulator of Rankine cycle in Python, C++ and Modelica (2.0.0). Zenodo. https://doi.org/10.5281/zenodo.4585581

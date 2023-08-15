@@ -48,19 +48,19 @@ Port::Port(mPort curmPort)
 
    if (!isnan(p) & !isnan(t))
    {
-      pt();
+      pt_prop();
    }
    else
    {
       if (!isnan(t) & !isnan(x))
       {
-         tx();
+         tx_prop();
       }
       else
       {
          if (!isnan(p) & !isnan(x))
          {
-            px();
+            px_prop();
          }
       }
    }
@@ -75,39 +75,39 @@ void Port::calmdot(double totalmass)
    mdot = totalmass * fdot;
 }
 
-void Port::pt()
+void Port::pt_prop()
 {
-   h = seupt(p, t, 4);
-   s = seupt(p, t, 5);
-   x = seupt(p, t, 15);
+   h =  pt(p, t, 4);
+   s =  pt(p, t, 5);
+   x =  pt(p, t, 15);
 }
 
-void Port::tx()
+void Port::tx_prop()
 {
-   p = seutx(t, x, 0);
-   h = seutx(t, x, 4);
-   s = seutx(t, x, 5);
+   p =  tx(t, x, 0);
+   h =  tx(t, x, 4);
+   s =  tx(t, x, 5);
 }
 
-void Port::px()
+void Port::px_prop()
 {
-   t = seupx(p, x, 1);
-   h = seupx(p, x, 4);
-   s = seupx(p, x, 5);
+   t =  px(p, x, 1);
+   h =  px(p, x, 4);
+   s =  px(p, x, 5);
 }
 
-void Port::ps()
+void Port::ps_prop()
 {
-   t = seups(p, s, 1);
-   h = seups(p, s, 4);
-   x = seups(p, s, 15);
+   t =  ps(p, s, 1);
+   h =  ps(p, s, 4);
+   x =  ps(p, s, 15);
 }
 
-void Port::ph()
+void Port::ph_prop()
 {
-   t = seuph(p, h, 1);
-   s = seuph(p, h, 5);
-   x = seuph(p, s, 15);
+   t =  ph(p, h, 1);
+   s =  ph(p, h, 5);
+   x =  ph(p, s, 15);
 }
 
 string Port::resultstring()

@@ -40,11 +40,11 @@ public:
   ~Port();
 
   void calmdot(double totalmass);
-  void pt();
-  void px();
-  void tx();
-  void ps();
-  void ph();
+  void pt_prop();
+  void px_prop();
+  void tx_prop();
+  void ps_prop();
+  void ph_prop();
   string resultstring();
 };
 

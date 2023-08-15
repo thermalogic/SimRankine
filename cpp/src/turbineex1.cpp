@@ -32,18 +32,18 @@ void TurbineEx1::state()
     if (ef == 1.0)
     {
         ePort->s = iPort->s;
-        ePort->ps();
+        ePort->ps_prop();
         oPort->s = iPort->s;
-        oPort->ps();
+        oPort->ps_prop();
     }
     else
     {
-        double isoh = seups(ePort->p, iPort->s, 4);
+        double isoh = ps(ePort->p, iPort->s, 4);
         ePort->h = iPort->h - ef * (iPort->h - isoh);
-        ePort->ph();
-        isoh = seups(oPort->p, ePort->s, 4);
+        ePort->ph_prop();
+        isoh = ps(oPort->p, ePort->s, 4);
         oPort->h = ePort->h - ef * (ePort->h - isoh);
-        oPort->ph();
+        oPort->ph_prop();
     };
 }
 

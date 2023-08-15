@@ -26,9 +26,9 @@ void Pump::state()
 {
     oPort->h = iPort->h;
     double sout_s = iPort->s;
-    double hout_s = seups(oPort->p, sout_s, 4);
+    double hout_s = ps(oPort->p, sout_s, 4);
     oPort->h = iPort->h + (hout_s - iPort->h) / ef;
-    oPort->ph();
+    oPort->ph_prop();
 }
 
 int Pump::balance()

@@ -28,13 +28,13 @@ void TurbineEx0::state()
     if (ef == 1.0)
     {
         oPort->s = iPort->s; //    Isentropic compression (ideal cycle)
-        oPort->ps();
+        oPort->ps_prop();
     }
     else
     {
-        double isoh = seups(oPort->p, iPort->s, 4);
+        double isoh = ps(oPort->p, iPort->s, 4);
         oPort->h = iPort->h - ef * (iPort->h - isoh);
-        oPort->ph();
+        oPort->ph_prop();
     }
 }
 
