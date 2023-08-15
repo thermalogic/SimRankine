@@ -60,7 +60,7 @@ Michael J. Moran, Howard N. Shapiro, Daisie D. Boettner, Margaret B. Bailey. Fun
 
 Chapter 8 : Vapour Power Systems 
 
-[The Jupyter Notebook of Example Rankine Cycles](https://github.com/PySEE/PyRankine)
+[The Jupyter Notebook of Example Rankine Cycles](https://github.com/thermalogic/PyRankine/tree/master)
 
 * Example 8.1: Analyzing an Ideal Rankine Cycle, P438
 * Example 8.2: Analyzing a Rankine Cycle with Irreversibilities, P444
