@@ -30,17 +30,20 @@ python  rankineapp.py
 ### Prerequisites：the seuif97 dynamic library
 
 1. building the dynamic library : https://github.com/thermalogic/RustSEUIF97
-2. put the dynamic library  in `./bin`
+2. put the dynamic library  in `./cpp/bin`
 
 ### Run
 
-* make: 
+In the terminal of `./cpp` 
+
+* make 
 
 ```bash
 make
 ```
 
-* cmake: 
+* cmake 
+
 ```bash
 cmake -B ./build/   
 cmake --build ./build/ --config Release
