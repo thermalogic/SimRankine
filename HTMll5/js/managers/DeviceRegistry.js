@@ -1,6 +1,32 @@
 // DeviceRegistry.js
 export class DeviceRegistry {
-    static classMap = new Map();  // 存储设备类型与类的映射
+    static classMap = new Map();
+
+    // 从JSON配置动态注册所有设备
+    static async initFromConfig(configPath = '../configs/device-mappings.json') {
+        const response = await fetch(configPath);
+        const { mappings } = await response.json();
+
+        for (const { type, path, className } of mappings) {
+            await this.registerDynamic(type, path, className);
+        }
+    }
+
+    // 动态加载并注册单个设备类
+    static async registerDynamic(type, modulePath, className) {
+        try {
+            const module = await import(modulePath);
+            this.register(type, module[className]);
+            console.log(`[DeviceRegistry] 成功注册: ${type} -> ${className}`);
+        } catch (error) {
+            console.error(`[DeviceRegistry] 注册失败: ${type}`, error);
+        }
+    }
+
+    // 静态注册（兼容旧代码）
+    static register(type, classRef) {
+        this.classMap.set(type, classRef);
+    }
 
     // 注册设备类
     static register(type, classRef) {

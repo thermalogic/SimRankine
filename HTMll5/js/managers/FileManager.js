@@ -1,10 +1,4 @@
-import { BoilerReheat } from '../devices/BoilerReheat.js';
-import { TurbineEx1 } from '../devices/TurbineEx1.js';
-import { TurbineSimple } from '../devices/TurbineSimple.js';
-import { Condenser } from '../devices/Condenser.js';
-import { Pump } from '../devices/Pump.js';
-import { Boiler } from '../devices/Boiler.js';
-import { Heater } from '../devices/Heater.js';
+
 import { DeviceRegistry } from './DeviceRegistry.js';
 
 export class FileManager {
@@ -14,18 +8,15 @@ export class FileManager {
 
     }
 
-    // 初始化设备注册（只需运行一次）
-    initializeDeviceRegistry() {
-        DeviceRegistry.registerAll({
-            'TurbineEx1_ph': TurbineEx1,
-            'Turbine_ph': TurbineSimple,
-            'Condenser_ph': Condenser,
-            'Pump_ph': Pump,
-            'Boiler_ph': Boiler,
-            'BoilerReheat_ph': BoilerReheat,
-            'OpenedheaterDw0_ph': Heater
-            // 可动态添加更多设备...
-        });
+async initializeDeviceRegistry() {
+        try {
+            // 从指定路径加载设备映射配置
+            await DeviceRegistry.initFromConfig('./config/device-mappings.json');
+            console.log('设备注册表初始化完成');
+        } catch (error) {
+            console.error('设备注册表初始化失败:', error);
+            throw error; // 可改为更友好的错误处理
+        }
     }
 
     saveDesign() {
