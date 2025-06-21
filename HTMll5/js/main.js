@@ -6,9 +6,12 @@ import { Pump } from './devices/Pump.js';
 import { Boiler } from './devices/Boiler.js';
 import { Heater } from './devices/Heater.js';
 import { ConnectionManager } from './managers/ConnectionManager.js';
+import { FileManager } from './managers/FileManager.js';
 
 class RankineDesignApp {
   constructor() {
+    this.fileManager = new FileManager(this);
+
     this.devices = [];
     this.selectedDevice = null;
     this.isDragging = false;
@@ -83,6 +86,31 @@ class RankineDesignApp {
       if (e.target === this.canvas) {
         this.clearSelection();
       }
+    });
+    // 添加保存/加载事件
+    document.getElementById('saveDesign').addEventListener('click', () => {
+      this.fileManager.saveDesign();
+    });
+
+    document.getElementById('loadDesign').addEventListener('click', () => {
+      document.getElementById('fileInput').click();
+    });
+
+    document.getElementById('fileInput').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      try {
+        await this.fileManager.loadDesign(file);
+        this.clearSelection();
+        console.log('Design loaded successfully');
+      } catch (error) {
+        console.error('Error loading design:', error);
+        alert('Error loading design: ' + error.message);
+      }
+
+      // 重置文件输入，允许重复加载同一文件
+      e.target.value = '';
     });
   }
 

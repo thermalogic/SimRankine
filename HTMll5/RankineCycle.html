@@ -81,13 +81,15 @@
             z-index: 20;
             /* 确保端口在设备上方 */
         }
-             .connection {
+
+        .connection {
             position: absolute;
             background-color: #0083a9;
             height: 2px;
             transform-origin: 0 0;
             z-index: 5;
         }
+
         .connection-arrow {
             position: absolute;
             width: 0;
@@ -97,12 +99,26 @@
             border-bottom: 4px solid transparent;
             transform-origin: center;
         }
+
         #connectionModeBtn.active {
             background-color: #0083a9;
             color: white;
         }
+
         .port-highlight {
             box-shadow: 0 0 0 3px yellow;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #fileInput {
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            opacity: 0;
         }
     </style>
 </head>
