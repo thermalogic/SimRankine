@@ -1,3 +1,11 @@
+import { BoilerReheat } from '../devices/BoilerReheat.js';
+import { TurbineEx1 } from '../devices/TurbineEx1.js';
+import { TurbineSimple } from '../devices/TurbineSimple.js';
+import { Condenser } from '../devices/Condenser.js';
+import { Pump } from '../devices/Pump.js';
+import { Boiler } from '../devices/Boiler.js';
+import { Heater } from '../devices/Heater.js';
+
 export class FileManager {
     constructor(app) {
         this.app = app;
@@ -25,9 +33,9 @@ export class FileManager {
 
         const dataStr = JSON.stringify(design, null, 2);
         const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
-        
+
         const exportName = 'rankine_design_' + new Date().toISOString().slice(0, 10) + '.json';
-        
+
         const linkElement = document.createElement('a');
         linkElement.setAttribute('href', dataUri);
         linkElement.setAttribute('download', exportName);
@@ -37,24 +45,24 @@ export class FileManager {
     async loadDesign(file) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
-            
+
             reader.onload = (e) => {
                 try {
                     const design = JSON.parse(e.target.result);
                     this.clearCurrentDesign();
                     this.loadDevices(design);
                     this.loadConnections(design);
-                    
+
                     this.app.nextId = design.nextId || Math.max(...this.app.devices.map(d => d.id), 0) + 1;
-                    this.app.connectionManager.nextConnectionId = 
+                    this.app.connectionManager.nextConnectionId =
                         design.nextConnectionId || (design.connections ? Math.max(...design.connections.map(c => c.id), 0) + 1 : 1);
-                    
+
                     resolve(true);
                 } catch (error) {
                     reject(error);
                 }
             };
-            
+
             reader.onerror = (error) => reject(error);
             reader.readAsText(file);
         });
@@ -68,7 +76,7 @@ export class FileManager {
             }
         });
         this.app.devices = [];
-        
+
         // 清除连接
         this.app.connectionManager.connections.forEach(conn => {
             if (conn.element.parentNode) {
@@ -82,6 +90,21 @@ export class FileManager {
     }
 
     loadDevices(design) {
+
+        class DeviceRegistry {
+            static register(type, classRef) {
+                this.classMap = this.classMap || {};
+                this.classMap[type] = classRef;
+            }
+            static getClass(type) {
+                return this.classMap?.[type];
+            }
+        }
+        // 使用时：
+        DeviceRegistry.register('TurbineEx1_ph', TurbineEx1);
+        // 加载时：
+
+        const DeviceClass = DeviceRegistry.getClass(deviceData.type);
         const deviceClasses = {
             'TurbineEx1_ph': TurbineEx1,
             'Turbine_ph': TurbineSimple,
@@ -111,11 +134,11 @@ export class FileManager {
         design.connections.forEach(connData => {
             const fromDevice = this.app.devices.find(d => d.id === connData.fromDeviceId);
             const toDevice = this.app.devices.find(d => d.id === connData.toDeviceId);
-            
+
             if (fromDevice && toDevice) {
                 const fromPort = fromDevice.ports.find(p => p.type === connData.fromPortType);
                 const toPort = toDevice.ports.find(p => p.type === connData.toPortType);
-                
+
                 if (fromPort && toPort) {
                     this.app.connectionManager.createConnection(
                         fromDevice,
