@@ -30,6 +30,7 @@ export class ConnectionManager {
             height: 2px;
             transform-origin: 0 0;
             z-index: 5;
+            animation: connectionFadeIn 0.5s ease-in-out;
         `;
 
         const arrowElement = document.createElement('div');
@@ -43,6 +44,7 @@ export class ConnectionManager {
             border-bottom: 4px solid transparent;
             transform-origin: center;
             z-index: 6;
+            animation: connectionFadeIn 0.5s ease-in-out;
         `;
 
         const connection = {
@@ -93,6 +95,17 @@ export class ConnectionManager {
         connection.arrowElement.addEventListener('mousedown', (e) => {
             this.selectConnection(connection);
             e.stopPropagation();
+        });
+
+        // 添加右键删除连接功能
+        connection.element.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            this.deleteConnection(connection);
+        });
+
+        connection.arrowElement.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            this.deleteConnection(connection);
         });
     }
 
@@ -161,3 +174,18 @@ export class ConnectionManager {
         connectionsToRemove.forEach(conn => this.deleteConnection(conn));
     }
 }
+
+// 添加连接动画效果
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes connectionFadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+`;
+
+document.head.appendChild(style);

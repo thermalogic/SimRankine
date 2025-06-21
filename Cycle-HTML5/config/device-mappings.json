@@ -2,17 +2,17 @@
   "mappings": [
     {
       "type": "TurbineEx1_ph",
-      "path": "../js/devices/TurbineEx1.js",
+      "path": "../../js/devices/TurbineEx1.js",
       "className": "TurbineEx1"
     },
     {
       "type": "Turbine_ph",
-      "path": "../js/devices/TurbineSimple.js",
+      "path": "../../js/devices/TurbineSimple.js",
       "className": "TurbineSimple"
     },
     {
       "type": "Condenser_ph",
-      "path": "../js/devices/Condenser.js",
+      "path": "../../js/devices/Condenser.js",
       "className": "Condenser"
     },
     {
@@ -28,7 +28,7 @@
     {
       "type": "BoilerReheat_ph",
       "path": "../../js/devices/BoilerReheat.js",
-      "className": "Boiler"
+      "className": "BoilerReheat"
     },
     {
       "type": "OpenedheaterDw0_ph",
