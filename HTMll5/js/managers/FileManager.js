@@ -5,10 +5,27 @@ import { Condenser } from '../devices/Condenser.js';
 import { Pump } from '../devices/Pump.js';
 import { Boiler } from '../devices/Boiler.js';
 import { Heater } from '../devices/Heater.js';
+import { DeviceRegistry } from './DeviceRegistry.js';
 
 export class FileManager {
     constructor(app) {
         this.app = app;
+        this.initializeDeviceRegistry(); // 初始化设备注册
+
+    }
+
+    // 初始化设备注册（只需运行一次）
+    initializeDeviceRegistry() {
+        DeviceRegistry.registerAll({
+            'TurbineEx1_ph': TurbineEx1,
+            'Turbine_ph': TurbineSimple,
+            'Condenser_ph': Condenser,
+            'Pump_ph': Pump,
+            'Boiler_ph': Boiler,
+            'BoilerReheat_ph': BoilerReheat,
+            'OpenedheaterDw0_ph': Heater
+            // 可动态添加更多设备...
+        });
     }
 
     saveDesign() {
@@ -89,35 +106,11 @@ export class FileManager {
         this.app.connectionManager.connections = [];
     }
 
+    // 重构后的 loadDevices
     loadDevices(design) {
-
-        class DeviceRegistry {
-            static register(type, classRef) {
-                this.classMap = this.classMap || {};
-                this.classMap[type] = classRef;
-            }
-            static getClass(type) {
-                return this.classMap?.[type];
-            }
-        }
-        // 使用时：
-        DeviceRegistry.register('TurbineEx1_ph', TurbineEx1);
-        // 加载时：
-
-        const DeviceClass = DeviceRegistry.getClass(deviceData.type);
-        const deviceClasses = {
-            'TurbineEx1_ph': TurbineEx1,
-            'Turbine_ph': TurbineSimple,
-            'Condenser_ph': Condenser,
-            'Pump_ph': Pump,
-            'Boiler_ph': Boiler,
-            'BoilerReheat_ph': BoilerReheat,
-            'OpenedheaterDw0_ph': Heater
-        };
-
         design.devices.forEach(deviceData => {
-            const DeviceClass = deviceClasses[deviceData.type];
-            if (DeviceClass) {
+            try {
+                const DeviceClass = DeviceRegistry.getClass(deviceData.type);
                 const device = new DeviceClass(
                     deviceData.id,
                     deviceData.x,
@@ -126,9 +119,13 @@ export class FileManager {
                 );
                 this.app.devices.push(device);
                 this.app.canvas.appendChild(device.element);
+            } catch (error) {
+                console.error(`Failed to load device ${deviceData.id} (${deviceData.type}):`, error);
+                // 可选：跳过错误或显示用户提示
             }
-        });
+        })
     }
+
 
     loadConnections(design) {
         design.connections.forEach(connData => {
