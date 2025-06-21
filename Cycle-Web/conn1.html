@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rankine Cycle 系统可视化 (修复连接问题)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { overflow: hidden; height: 100vh; }
+        
+        /* 三栏布局 */
+        .app { display: flex; height: 100%; }
+        .sidebar { width: 120px; background: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        .main { flex: 1; display: flex; flex-direction: column; background: #f0f0f0; }
+        .properties { width: 240px; background: #fff; box-shadow: -0 0 10px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        
+        /* 设备列表样式 */
+        .device-list { padding: 10px; overflow-y: auto; flex: 1; }
+        .device-item { 
+            padding: 8px; margin: 5px; border: 1px solid #eee; 
+            border-radius: 4px; cursor: pointer; text-align: center;
+            background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .device-item:hover { background: #e6f7ff; border-color: #91d5ff; }
+        .device-icon { font-size: 18px; margin-bottom: 5px; }
+        .device-name { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        /* 画布样式 */
+        .canvas-container { flex: 1; position: relative; background: #f8f9fa; overflow: auto; }
+        #canvas { 
+            position: absolute; top: 0; left: 0; 
+            background-image: linear-gradient(#eee 1px, transparent 1px),
+                              linear-gradient(90deg, #eee 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .device { 
+            position: absolute; background: #e3f2fd; border: 1px solid #90caf9; 
+            border-radius: 4px; padding: 10px; text-align: center; cursor: move;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); z-index: 10;
+        }
+        .device.selected { outline: 2px dashed #2196f3; outline-offset: 2px; }
+        .port { 
+            position: absolute; width: 14px; height: 14px; border-radius: 50%; 
+            cursor: crosshair; z-index: 20;
+        }
+        .port-in { background: white; border: 2px solid #f44336; } /* 入口端口为空心红圆 */
+        .port-out { background: #4caf50; } /* 出口端口为实心绿圆 */
+        .port:hover { transform: scale(1.3); box-shadow: 0 0 0 2px white, 0 0 0 4px #03a9f4; }
+        .port.active { transform: scale(1.3); box-shadow: 0 0 0 2px white, 0 0 0 4px #ff5722; }
+        .connection { 
+            position: absolute; background: #03a9f4; height: 2px; z-index: 5;
+            transform-origin: 0 0;
+        }
+        .connection-arrow { 
+            position: absolute; width: 0; height: 0; 
+            border-left: 6px solid #03a9f4; border-top: 3px solid transparent; 
+            border-bottom: 3px solid transparent; transform-origin: center; z-index: 6;
+        }
+        .temp-connection {
+            position: absolute; background: #ff5722; height: 2px; z-index: 99;
+            transform-origin: 0 0;
+            opacity: 0.7;
+        }
+        
+        /* 操作栏样式 */
+        .toolbar { padding: 10px; background: #fff; border-bottom: 1px solid #eee; }
+        .toolbar button { 
+            padding: 6px 10px; margin-right: 5px; border: none; 
+            border-radius: 4px; cursor: pointer; font-size: 12px;
+        }
+        .toolbar button:hover { background: #e0e0e0; }
+        .toolbar .save { background: #4caf50; color: white; }
+        .toolbar .load { background: #2196f3; color: white; }
+        .toolbar .clear { background: #f44336; color: white; }
+        
+        /* 属性面板样式 */
+        .properties-header { padding: 10px; border-bottom: 1px solid #eee; }
+        .properties-content { padding: 10px; overflow-y: auto; flex: 1; }
+        .property-group { margin-bottom: 15px; }
+        .property-title { font-weight: bold; margin-bottom: 5px; font-size: 14px; }
+        .property-item { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px dashed #eee; }
+        .property-name { color: #666; font-size: 12px; }
+        .property-value { font-weight: bold; font-size: 12px; }
+        .notification {
+            position: fixed; top: 20px; right: 20px;
+            padding: 8px 15px; background: #4caf50; color: white;
+            border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transform: translateX(calc(100% + 20px)); transition: transform 0.3s ease;
+        }
+        .notification.show { transform: translateX(0); }
+        .notification.error { background: #f44336; }
+        .connection-info {
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            margin-top: 10px;
+            border: 1px solid #eee;
+            position: relative;
+        }
+        .delete-connection {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            width: 20px;
+            height: 20px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+        .delete-connection:hover {
+            background: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <!-- 左侧设备列表 -->
+        <div class="sidebar">
+            <div class="device-list" id="device-list">
+                <div class="device-item" data-type="turbine">
+                    <div class="device-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    <div class="device-name">汽轮机</div>
+                </div>
+                <div class="device-item" data-type="boiler">
+                    <div class="device-icon"><i class="fas fa-fire"></i></div>
+                    <div class="device-name">锅炉</div>
+                </div>
+                <div class="device-item" data-type="condenser">
+                    <div class="device-icon"><i class="fas fa-snowflake"></i></div>
+                    <div class="device-name">冷凝器</div>
+                </div>
+                <div class="device-item" data-type="pump">
+                    <div class="device-icon"><i class="fas fa-pump"></i></div>
+                    <div class="device-name">泵</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 中间画布区域 -->
+        <div class="main">
+            <div class="toolbar">
+                <button class="save" id="save-btn"><i class="fas fa-save"></i> 保存</button>
+                <button class="load" id="load-btn"><i class="fas fa-load"></i> 加载</button>
+                <button class="clear" id="clear-btn"><i class="fas fa-trash"></i> 清空</button>
+            </div>
+            <div class="canvas-container" id="canvas-container">
+                <div id="canvas"></div>
+                <div id="temp-connection" class="temp-connection" style="display: none;"></div>
+            </div>
+        </div>
+        
+        <!-- 右侧属性面板 -->
+        <div class="properties">
+            <div class="properties-header">
+                <h3>设备属性</h3>
+            </div>
+            <div class="properties-content" id="properties-panel">
+                <p style="text-align: center; padding: 20px; color: #999;">请选择一个设备</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // 设备管理器
+        class DeviceManager {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.devices = [];
+                this.nextId = 1;
+            }
+            
+            addDevice(type, x, y) {
+                const device = this.createDevice(type, x, y);
+                this.devices.push(device);
+                this.canvas.appendChild(device.element);
+                return device;
+            }
+            
+            createDevice(type, x, y) {
+                const id = `device-${this.nextId++}`;
+                let element, ports = [];
+                
+                // 根据类型创建设备
+                if (type === 'turbine') {
+                    element = document.createElement('div');
+                    element.className = 'device';
+                    element.style.width = '80px';
+                    element.style.height = '60px';
+                    element.innerHTML = '<div style="font-size: 12px; font-weight: bold;">汽轮机</div>';
+                    
+                    // 创建端口
+                    ports = [
+                        { type: 'out', x: 0, y: 30, direction: 'left' },  // 出口在左侧
+                        { type: 'in', x: 80, y: 30, direction: 'right' }   // 入口在右侧
+                    ];
+                } else if (type === 'boiler') {
+                    element = document.createElement('div');
+                    element.className = 'device';
+                    element.style.width = '60px';
+                    element.style.height = '80px';
+                    element.innerHTML = '<div style="font-size: 12px; font-weight: bold;">锅炉</div>';
+                    
+                    ports = [
+                        { type: 'in', x: 30, y: 0, direction: 'up' },     // 入口在上侧
+                        { type: 'out', x: 30, y: 80, direction: 'down' }  // 出口在下侧
+                    ];
+                } else if (type === 'condenser') {
+                    element = document.createElement('div');
+                    element.className = 'device';
+                    element.style.width = '60px';
+                    element.style.height = '80px';
+                    element.innerHTML = '<div style="font-size: 12px; font-weight: bold;">冷凝器</div>';
+                    
+                    ports = [
+                        { type: 'in', x: 30, y: 80, direction: 'down' },  // 入口在下侧
+                        { type: 'out', x: 30, y: 0, direction: 'up' }     // 出口在上侧
+                    ];
+                } else if (type === 'pump') {
+                    element = document.createElement('div');
+                    element.className = 'device';
+                    element.style.width = '50px';
+                    element.style.height = '50px';
+                    element.innerHTML = '<div style="font-size: 12px; font-weight: bold;">泵</div>';
+                    
+                    ports = [
+                        { type: 'in', x: 0, y: 25, direction: 'left' },   // 入口在左侧
+                        { type: 'out', x: 50, y: 25, direction: 'right' }  // 出口在右侧
+                    ];
+                }
+                
+                // 设置设备位置
+                element.style.left = `${x}px`;
+                element.style.top = `${y}px`;
+                
+                // 创建端口
+                const devicePorts = [];
+                ports.forEach(port => {
+                    const portElement = document.createElement('div');
+                    portElement.className = 'port port-' + port.type;
+                    portElement.style.left = `${port.x - 7}px`;  // 调整位置以居中
+                    portElement.style.top = `${port.y - 7}px`;   // 调整位置以居中
+                    element.appendChild(portElement);
+                    
+                    devicePorts.push({
+                        type: port.type,
+                        element: portElement,
+                        x: port.x,
+                        y: port.y,
+                        direction: port.direction
+                    });
+                });
+                
+                return {
+                    id,
+                    type,
+                    x,
+                    y,
+                    element,
+                    ports: devicePorts,
+                    selected: false,
+                    setSelected: (selected) => {
+                        this.selected = selected;
+                        if (selected) {
+                            element.classList.add('selected');
+                        } else {
+                            element.classList.remove('selected');
+                        }
+                    }
+                };
+            }
+            
+            selectDevice(id) {
+                this.devices.forEach(device => device.setSelected(false));
+                const device = this.devices.find(d => d.id === id);
+                if (device) device.setSelected(true);
+                return device;
+            }
+            
+            getDevice(id) {
+                return this.devices.find(d => d.id === id);
+            }
+            
+            removeDevice(id) {
+                const index = this.devices.findIndex(d => d.id === id);
+                if (index === -1) return;
+                
+                const device = this.devices[index];
+                this.canvas.removeChild(device.element);
+                this.devices.splice(index, 1);
+            }
+            
+            clearAll() {
+                this.devices.forEach(device => this.canvas.removeChild(device.element));
+                this.devices = [];
+                this.nextId = 1;
+            }
+        }
+        
+        // 连接管理器
+        class ConnectionManager {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.connections = [];
+                this.nextId = 1;
+                this.tempConnection = document.getElementById('temp-connection');
+            }
+            
+            createConnection(fromDevice, fromPort, toDevice, toPort) {
+                // 检查是否是有效的连接
+                if (!fromDevice || !fromPort || !toDevice || !toPort) {
+                    return null;
+                }
+                
+                // 不能连接到同一个设备
+                if (fromDevice === toDevice) {
+                    return null;
+                }
+                
+                // 必须是从out到in的连接
+                if (fromPort.type !== 'out' || toPort.type !== 'in') {
+                    return null;
+                }
+                
+                // 检查是否已经存在相同的连接
+                const exists = this.connections.some(conn => 
+                    conn.fromDevice === fromDevice && 
+                    conn.fromPort === fromPort && 
+                    conn.toDevice === toDevice && 
+                    conn.toPort === toPort
+                );
+                
+                if (exists) return null;
+                
+                // 检查连接方向是否符合热力学循环
+                const validConnections = {
+                    'boiler': ['turbine'],    // 锅炉只能连接到汽轮机
+                    'turbine': ['condenser'], // 汽轮机只能连接到冷凝器
+                    'condenser': ['pump'],    // 冷凝器只能连接到泵
+                    'pump': ['boiler']       // 泵只能连接到锅炉
+                };
+                
+                if (!validConnections[fromDevice.type]?.includes(toDevice.type)) {
+                    return null;
+                }
+                
+                // 创建连接
+                const connection = this.createConnectionElement(fromDevice, fromPort, toDevice, toPort);
+                this.connections.push(connection);
+                this.canvas.appendChild(connection.element);
+                this.canvas.appendChild(connection.arrow);
+                return connection;
+            }
+            
+            createConnectionElement(fromDevice, fromPort, toDevice, toPort) {
+                const id = `connection-${this.nextId++}`;
+                const element = document.createElement('div');
+                element.className = 'connection';
+                
+                // 根据设备类型设置连接线颜色
+                const connectionColors = {
+                    'boiler-turbine': '#ff5722',     // 锅炉到汽轮机 - 橙色
+                    'turbine-condenser': '#4caf50',  // 汽轮机到冷凝器 - 绿色
+                    'condenser-pump': '#2196f3',     // 冷凝器到泵 - 蓝色
+                    'pump-boiler': '#9c27b0'         // 泵到锅炉 - 紫色
+                };
+                const colorKey = `${fromDevice.type}-${toDevice.type}`;
+                element.style.background = connectionColors[colorKey] || '#03a9f4';
+                
+                const arrow = document.createElement('div');
+                arrow.className = 'connection-arrow';
+                arrow.style.borderLeftColor = connectionColors[colorKey] || '#03a9f4';
+                
+                this.updateConnectionPosition(element, arrow, fromDevice, fromPort, toDevice, toPort);
+                
+                return {
+                    id,
+                    fromDevice,
+                    fromPort,
+                    toDevice,
+                    toPort,
+                    element,
+                    arrow,
+                    update: () => this.updateConnectionPosition(element, arrow, fromDevice, fromPort, toDevice, toPort)
+                };
+            }
+            
+            updateConnectionPosition(element, arrow, fromDevice, fromPort, toDevice, toPort) {
+                const fromRect = fromDevice.element.getBoundingClientRect();
+                const toRect = toDevice.element.getBoundingClientRect();
+                const canvasRect = this.canvas.getBoundingClientRect();
+                
+                // 计算端口在画布中的绝对位置
+                const fromX = fromPort.x + fromRect.left - canvasRect.left;
+                const fromY = fromPort.y + fromRect.top - canvasRect.top;
+                const toX = toPort.x + toRect.left - canvasRect.left;
+                const toY = toPort.y + toRect.top - canvasRect.top;
+                
+                // 计算连接线的长度和角度
+                const dx = toX - fromX;
+                const dy = toY - fromY;
+                const length = Math.sqrt(dx * dx + dy * dy);
+                const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                
+                // 设置连接线的样式
+                element.style.width = `${length}px`;
+                element.style.left = `${fromX}px`;
+                element.style.top = `${fromY}px`;
+                element.style.transform = `rotate(${angle}deg)`;
+                
+                // 设置箭头的位置和方向
+                const arrowX = toX - 6 * Math.cos(angle * Math.PI / 180);
+                const arrowY = toY - 6 * Math.sin(angle * Math.PI / 180);
+                
+                arrow.style.left = `${arrowX}px`;
+                arrow.style.top = `${arrowY}px`;
+                arrow.style.transform = `rotate(${angle}deg)`;
+            }
+            
+            updateTempConnection(fromDevice, fromPort, toX, toY) {
+                const fromRect = fromDevice.element.getBoundingClientRect();
+                const canvasRect = this.canvas.getBoundingClientRect();
+                
+                // 计算起点在画布中的绝对位置
+                const fromX = fromPort.x + fromRect.left - canvasRect.left;
+                const fromY = fromPort.y + fromRect.top - canvasRect.top;
+                
+                // 计算临时连接线的长度和角度
+                const dx = toX - fromX;
+                const dy = toY - fromY;
+                const length = Math.sqrt(dx * dx + dy * dy);
+                const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                
+                // 设置临时连接线的样式
+                this.tempConnection.style.width = `${length}px`;
+                this.tempConnection.style.left = `${fromX}px`;
+                this.tempConnection.style.top = `${fromY}px`;
+                this.tempConnection.style.transform = `rotate(${angle}deg)`;
+                this.tempConnection.style.display = 'block';
+            }
+            
+            hideTempConnection() {
+                this.tempConnection.style.display = 'none';
+            }
+            
+            removeConnection(id) {
+                const connection = this.connections.find(c => c.id === id);
+                if (connection) {
+                    this.canvas.removeChild(connection.element);
+                    this.canvas.removeChild(connection.arrow);
+                    this.connections = this.connections.filter(c => c.id !== id);
+                    return true;
+                }
+                return false;
+            }
+            
+            removeConnectionsForDevice(device) {
+                this.connections.forEach(connection => {
+                    if (connection.fromDevice === device || connection.toDevice === device) {
+                        this.canvas.removeChild(connection.element);
+                        this.canvas.removeChild(connection.arrow);
+                    }
+                });
+                this.connections = this.connections.filter(connection => 
+                    connection.fromDevice !== device && connection.toDevice !== device
+                );
+            }
+            
+            clearAll() {
+                this.connections.forEach(connection => {
+                    this.canvas.removeChild(connection.element);
+                    this.canvas.removeChild(connection.arrow);
+                });
+                this.connections = [];
+                this.hideTempConnection();
+            }
+            
+            getConnectionsForDevice(device) {
+                return this.connections.filter(conn => 
+                    conn.fromDevice === device || conn.toDevice === device
+                );
+            }
+        }
+        
+        // 主应用
+        class RankineCycleApp {
+            constructor() {
+                this.canvas = document.getElementById('canvas');
+                this.canvasContainer = document.getElementById('canvas-container');
+                this.deviceList = document.getElementById('device-list');
+                this.propertiesPanel = document.getElementById('properties-panel');
+                this.notification = document.getElementById('notification');
+                
+                // 初始化管理器
+                this.deviceManager = new DeviceManager(this.canvas);
+                this.connectionManager = new ConnectionManager(this.canvas);
+                
+                // 状态管理
+                this.selectedDeviceType = null;
+                this.connectingPort = null;
+                this.selectedDevice = null;
+                
+                // 初始化事件
+                this.initEvents();
+                
+                // 调整画布大小
+                this.resizeCanvas();
+                window.addEventListener('resize', () => this.resizeCanvas());
+            }
+            
+            initEvents() {
+                // 设备列表点击事件
+                this.deviceList.querySelectorAll('.device-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        this.selectedDeviceType = item.dataset.type;
+                        this.canvasContainer.style.cursor = 'crosshair';
+                        this.showNotification(`点击画布添加 ${item.querySelector('.device-name').textContent}`);
+                    });
+                });
+                
+                // 画布点击事件
+                this.canvas.addEventListener('click', (e) => {
+                    if (this.selectedDeviceType) {
+                        const rect = this.canvas.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        this.addDevice(this.selectedDeviceType, x, y);
+                        this.selectedDeviceType = null;
+                        this.canvasContainer.style.cursor = 'default';
+                    } else if (e.target === this.canvas) {
+                        // 点击空白处取消选择
+                        this.deviceManager.selectDevice(null);
+                        this.selectedDevice = null;
+                        this.updatePropertiesPanel(null);
+                    }
+                });
+                
+                // 画布鼠标移动事件（用于临时连接线）
+                this.canvas.addEventListener('mousemove', (e) => {
+                    if (this.connectingPort) {
+                        const rect = this.canvas.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        this.connectionManager.updateTempConnection(
+                            this.connectingPort.device, 
+                            this.connectingPort.port,
+                            x, y
+                        );
+                    }
+                });
+                
+                // 画布鼠标释放事件（用于临时连接线）
+                this.canvas.addEventListener('mouseup', () => {
+                    if (this.connectingPort) {
+                        this.resetConnectingState();
+                    }
+                });
+                
+                // 清空按钮
+                document.getElementById('clear-btn').addEventListener('click', () => {
+                    if (confirm('确定要清空画布吗？')) {
+                        this.deviceManager.clearAll();
+                        this.connectionManager.clearAll();
+                        this.propertiesPanel.innerHTML = '<p style="text-align: center; padding: 20px; color: #999;">请选择一个设备</p>';
+                        this.showNotification('画布已清空');
+                    }
+                });
+                
+                // 保存/加载功能
+                document.getElementById('save-btn').addEventListener('click', () => this.saveProject());
+                document.getElementById('load-btn').addEventListener('click', () => this.loadProject());
+            }
+            
+            addDevice(type, x, y) {
+                const device = this.deviceManager.addDevice(type, x, y);
+                
+                // 添加拖拽功能
+                this.setupDrag(device);
+                
+                // 添加端口点击功能
+                this.setupPortEvents(device);
+                
+                // 更新属性面板
+                this.deviceManager.selectDevice(device.id);
+                this.selectedDevice = device;
+                this.updatePropertiesPanel(device);
+                
+                // 显示通知
+                this.showNotification(`已添加 ${type === 'turbine' ? '汽轮机' : type === 'boiler' ? '锅炉' : type === 'condenser' ? '冷凝器' : '泵'}`);
+            }
+            
+            setupDrag(device) {
+                let isDragging = false;
+                let offsetX, offsetY;
+                
+                device.element.addEventListener('mousedown', (e) => {
+                    if (e.target.classList.contains('port')) return;
+                    
+                    isDragging = true;
+                    offsetX = e.clientX - device.x;
+                    offsetY = e.clientY - device.y;
+                    device.element.style.zIndex = 100;
+                    
+                    // 选择设备
+                    this.deviceManager.selectDevice(device.id);
+                    this.selectedDevice = device;
+                    this.updatePropertiesPanel(device);
+                    
+                    e.stopPropagation();
+                });
+                
+                document.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    
+                    const x = e.clientX - offsetX;
+                    const y = e.clientY - offsetY;
+                    
+                    device.x = x;
+                    device.y = y;
+                    device.element.style.left = `${x}px`;
+                    device.element.style.top = `${y}px`;
+                    
+                    // 更新连接
+                    this.connectionManager.connections.forEach(connection => {
+                        if (connection.fromDevice === device || connection.toDevice === device) {
+                            connection.update();
+                        }
+                    });
+                });
+                
+                document.addEventListener('mouseup', () => {
+                    if (isDragging) {
+                        isDragging = false;
+                        device.element.style.zIndex = 10;
+                    }
+                });
+            }
+            
+            setupPortEvents(device) {
+                device.ports.forEach(port => {
+                    port.element.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        
+                        // 如果已经在连接状态
+                        if (this.connectingPort) {
+                            // 不能连接到同一个设备的端口
+                            if (this.connectingPort.device === device) {
+                                this.showNotification('不能连接到同一个设备', 'error');
+                                this.resetConnectingState();
+                                return;
+                            }
+                            
+                            // 必须从out连接到in
+                            if (port.type !== 'in') {
+                                this.showNotification('必须连接到入口端口', 'error');
+                                this.resetConnectingState();
+                                return;
+                            }
+                            
+                            // 获取实际的目标端口对象
+                            const targetPort = device.ports.find(p => p.element === port.element);
+                            
+                            if (!targetPort) {
+                                this.showNotification('无法识别目标端口', 'error');
+                                this.resetConnectingState();
+                                return;
+                            }
+                            
+                            // 创建连接
+                            const connection = this.connectionManager.createConnection(
+                                this.connectingPort.device, 
+                                this.connectingPort.port,
+                                device, 
+                                targetPort
+                            );
+                            
+                            if (connection) {
+                                this.showNotification('连接已创建');
+                                this.updatePropertiesPanel(device);
+                                this.updatePropertiesPanel(this.connectingPort.device);
+                            } else {
+                                this.showNotification('连接不符合热力学循环方向', 'error');
+                            }
+                            
+                            this.resetConnectingState();
+                        } else {
+                            // 开始连接状态（只允许从out端口开始）
+                            if (port.type === 'out') {
+                                this.connectingPort = { device, port };
+                                port.element.classList.add('active');
+                                this.showNotification('选择另一个设备的入口端口完成连接');
+                            } else {
+                                this.showNotification('请从出口端口开始连接', 'error');
+                            }
+                        }
+                    });
+                });
+            }
+            
+            resetConnectingState() {
+                if (this.connectingPort) {
+                    this.connectingPort.port.element.classList.remove('active');
+                    this.connectingPort = null;
+                    this.connectionManager.hideTempConnection();
+                }
+            }
+            
+            updatePropertiesPanel(device) {
+                if (!device) {
+                    this.propertiesPanel.innerHTML = '<p style="text-align: center; padding: 20px; color: #999;">请选择一个设备</p>';
+                    return;
+                }
+                
+                let properties = '';
+                if (device.type === 'turbine') {
+                    properties = `
+                        <div class="property-group">
+                            <div class="property-title">设备参数</div>
+                            <div class="property-item">
+                                <div class="property-name">入口压力</div>
+                                <div class="property-value">8.0 MPa</div>
+                            </div>
+                            <div class="property-item">
+                                <div class="property-name">出口压力</div>
+                                <div class="property-value">0.1 MPa</div>
+                            </div>
+                            <div class="property-item">
+                                <div class="property-name">效率</div>
+                                <div class="property-value">85%</div>
+                            </div>
+                        </div>
+                    `;
+                } else if (device.type === 'boiler') {
+                    properties = `
+                        <div class="property-group">
+                            <div class="property-title">设备参数</div>
+                            <div class="property-item">
+                                <div class="property-name">入口压力</div>
+                                <div class="property-value">6.0 MPa</div>
+                            </div>
+                            <div class="property-item">
+                                <div class="property-name">出口压力</div>
+                                <div class="property-value">8.0 MPa</div>
+                            </div>
+                            <div class="property-item">
+                                <div class="property-name">温度</div>
+                                <div class="property-value">500°C</div>
+                            </div>
+                        </div>
+                    `;
+                } else if (device.type === 'condenser') {
+                    properties = `
+                        <div class="property-group">
+                            <div class="property-title">设备参数</div>
+                            <div class="property-item">
+                                <div class="property-name">入口压力</div>
+                                <div class="property-value">0.1 MPa</div>
+                            </div>
+                            <div class="property-item">
+                                <div class="property-name">出口压力</div>
+                                <div class="property-value">0.08 MPa</div>
+                            </div>
+                            <div class="property-item">
+                                <div class="property-name">温度</div>
+                                <div class="property-value">40°C</div>
+                            </div>
+                        </div>
+                    `;
+                } else if (device.type === 'pump') {
+                    properties = `
+                        <div class="property-group">
+                            <div class="property-title">设备参数</div>
+                            <div class="property-item">
+                                <div class="property-name">入口压力</div>
+                                <div class="property-value">0.08 MPa</div>
+                            </div>
+                            <div class="property-item">
+                                <div class="property-name">出口压力</div>
+                                <div class="property-value">6.0 MPa</div>
+                            </div>
+                            <div class="property-item">
+                                <div class="property-name">效率</div>
+                                <div class="property-value">75%</div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                // 获取连接信息
+                const connections = this.connectionManager.getConnectionsForDevice(device);
+                let connectionsHtml = '';
+                
+                if (connections.length > 0) {
+                    connectionsHtml = `
+                        <div class="property-group">
+                            <div class="property-title">连接信息</div>
+                            ${connections.map(conn => `
+                                <div class="connection-info">
+                                    <button class="delete-connection" data-id="${conn.id}">×</button>
+                                    <div class="property-item">
+                                        <div class="property-name">来源</div>
+                                        <div class="property-value">${conn.fromDevice.type === 'turbine' ? '汽轮机' : 
+                                                                      conn.fromDevice.type === 'boiler' ? '锅炉' : 
+                                                                      conn.fromDevice.type === 'condenser' ? '冷凝器' : '泵'} (${conn.fromDevice.id})</div>
+                                    </div>
+                                    <div class="property-item">
+                                        <div class="property-name">目标</div>
+                                        <div class="property-value">${conn.toDevice.type === 'turbine' ? '汽轮机' : 
+                                                                    conn.toDevice.type === 'boiler' ? '锅炉' : 
+                                                                    conn.toDevice.type === 'condenser' ? '冷凝器' : '泵'} (${conn.toDevice.id})</div>
+                                    </div>
+                                    <div class="property-item">
+                                        <div class="property-name">方向</div>
+                                        <div class="property-value">${conn.fromPort.direction} → ${conn.toPort.direction}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+                
+                this.propertiesPanel.innerHTML = `
+                    <div class="property-group">
+                        <div class="property-title">基本信息</div>
+                        <div class="property-item">
+                            <div class="property-name">ID</div>
+                            <div class="property-value">${device.id}</div>
+                        </div>
+                        <div class="property-item">
+                            <div class="property-name">类型</div>
+                            <div class="property-value">${device.type === 'turbine' ? '汽轮机' : device.type === 'boiler' ? '锅炉' : device.type === 'condenser' ? '冷凝器' : '泵'}</div>
+                        </div>
+                        <div class="property-item">
+                            <div class="property-name">位置</div>
+                            <div class="property-value">(${Math.round(device.x)}, ${Math.round(device.y)})</div>
+                        </div>
+                    </div>
+                    ${properties}
+                    ${connectionsHtml}
+                `;
+                
+                // 添加删除连接按钮的事件监听
+                this.propertiesPanel.querySelectorAll('.delete-connection').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const connectionId = button.dataset.id;
+                        if (this.connectionManager.removeConnection(connectionId)) {
+                            this.showNotification('连接已删除');
+                            this.updatePropertiesPanel(device);
+                        }
+                    });
+                });
+            }
+            
+            resizeCanvas() {
+                const rect = this.canvasContainer.getBoundingClientRect();
+                this.canvas.style.width = `${rect.width}px`;
+                this.canvas.style.height = `${rect.height}px`;
+            }
+            
+            saveProject() {
+                const project = {
+                    devices: this.deviceManager.devices.map(device => ({
+                        id: device.id,
+                        type: device.type,
+                        x: device.x,
+                        y: device.y
+                    })),
+                    connections: this.connectionManager.connections.map(connection => ({
+                        from: connection.fromDevice.id,
+                        fromPort: connection.fromPort.type,
+                        to: connection.toDevice.id,
+                        toPort: connection.toPort.type
+                    }))
+                };
+                
+                const json = JSON.stringify(project, null, 2);
+                const blob = new Blob([json], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `rankine-cycle-${new Date().toISOString().slice(0, 10)}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                this.showNotification('项目已保存');
+            }
+            
+            loadProject() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.json';
+                
+                input.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        try {
+                            const project = JSON.parse(event.target.result);
+                            this.deviceManager.clearAll();
+                            this.connectionManager.clearAll();
+                            
+                            // 恢复设备
+                            const deviceMap = {};
+                            project.devices.forEach(deviceData => {
+                                const device = this.deviceManager.addDevice(deviceData.type, deviceData.x, deviceData.y);
+                                deviceMap[deviceData.id] = device;
+                                this.setupDrag(device);
+                                this.setupPortEvents(device);
+                            });
+                            
+                            // 恢复连接
+                            project.connections.forEach(connectionData => {
+                                const fromDevice = deviceMap[connectionData.from];
+                                const toDevice = deviceMap[connectionData.to];
+                                
+                                if (fromDevice && toDevice) {
+                                    const fromPort = fromDevice.ports.find(p => p.type === connectionData.fromPort);
+                                    const toPort = toDevice.ports.find(p => p.type === connectionData.toPort);
+                                    
+                                    if (fromPort && toPort) {
+                                        this.connectionManager.createConnection(fromDevice, fromPort, toDevice, toPort);
+                                    }
+                                }
+                            });
+                            
+                            this.showNotification('项目加载成功');
+                        } catch (error) {
+                            this.showNotification('项目加载失败: ' + error.message, 'error');
+                        }
+                    };
+                    reader.readAsText(file);
+                });
+                
+                input.click();
+            }
+            
+            showNotification(message, type = 'info') {
+                this.notification.textContent = message;
+                this.notification.className = 'notification show';
+                
+                if (type === 'error') {
+                    this.notification.classList.add('error');
+                } else {
+                    this.notification.classList.remove('error');
+                }
+                
+                setTimeout(() => {
+                    this.notification.className = 'notification';
+                }, 3000);
+            }
+        }
+        
+        // 初始化应用
+        document.addEventListener('DOMContentLoaded', () => {
+            new RankineCycleApp();
+        });
+    </script>
+</body>
+</html>
