@@ -43,8 +43,8 @@ public:
   Port *iPort;
   Port *oPort;
   Port *ePort;    // turbineex1
-  Port *iPort_fw; // opendedheaterdw0
-  Port *oPort_fw; // opendedheaterdw0
+  Port *iPort_fw; // openedheaterdw0
+  Port *oPort_fw; // openedheaterdw0
 
   mapPortObj portdict;
 

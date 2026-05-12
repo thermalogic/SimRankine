@@ -29,7 +29,7 @@ class Connector:
         comp1, port1 =tupConnector[1]
         # 1 get the index of port in nodes
         comps[comp0].portdict[port0][0].index = self.index
-        # 2 cerate the node with port0
+        # 2 create the node with port0
         self.nodes.append(comps[comp0].portdict[port0])
         # 3 join port1 info into  nodes[self.index]
         self.combined_node_value(

@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/306221786.svg)](https://zenodo.org/badge/latestdoi/306221786)
 
-The SimRankine is the demo steady-state simulator of Rankine cycle in Python, C++ and Modelica
+The SimRankine is the demo steady-state simulator of Rankine cycle in Python, C++ and Modelica.
 
 * [Python with the sequential-modular approach](./python)
 
@@ -12,25 +12,25 @@ The SimRankine is the demo steady-state simulator of Rankine cycle in Python, C+
 
 ## Python
 
-### Prerequisites：seuif97
+### Prerequisites: seuif97
 
 ```bash
 python -m pip install seuif97
 ```
 ### Run
  
-type `python  rankineapp.py` in the terminal of `./python` 
+type `python rankineapp.py` in the terminal of `./python` 
 
 ```bash
-python  rankineapp.py
+python rankineapp.py
 ```
 
 ## C++
 
-### Prerequisites：the seuif97 dynamic library
+### Prerequisites: the seuif97 dynamic library
 
-1. building the dynamic library : https://github.com/thermalogic/RustSEUIF97
-2. put the dynamic library  in `./cpp/bin`
+1. building the dynamic library: https://github.com/thermalogic/RustSEUIF97
+2. put the dynamic library in `./cpp/bin`
 
 ### Run
 
@@ -50,7 +50,7 @@ cmake --build ./build/ --config Release
 ```
 ## Modelica
 
-**Prerequisites**：Dymola
+**Prerequisites**: Dymola
 
 ![simrankinemo](./img/simrankinemo.jpg)
 
@@ -58,7 +58,7 @@ cmake --build ./build/ --config Release
 
 Michael J. Moran, Howard N. Shapiro, Daisie D. Boettner, Margaret B. Bailey. Fundamentals of Engineering Thermodynamics(7th Edition). John Wiley & Sons, Inc. 2011
 
-Chapter 8 : Vapour Power Systems 
+Chapter 8: Vapor Power Systems 
 
 [The Jupyter Notebook of Example Rankine Cycles](https://github.com/thermalogic/PyRankine/tree/master)
 

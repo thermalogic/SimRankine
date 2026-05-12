@@ -94,7 +94,7 @@ class TurbineEx1:
         result += '\n' + " PORT " + Port.title
         result += '\n' + " iPort " + self.iPort[0].__str__()
         result += '\n' + " oPort " + self.oPort[0].__str__()
-        result += '\n' + " ePprt " + self.ePort[0].__str__()
+        result += '\n' + " ePort " + self.ePort[0].__str__()
         result += '\nworkExtracted(kJ/kg): \t{:>.2f}'.format(
             self.workExtracted)
         result += '\nWExtracted(MW): \t{:>.2f}'.format(self.WExtracted)

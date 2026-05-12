@@ -1,5 +1,5 @@
 """
-General Object-oriented Abstraction of vcr Cycle 
+General Object-oriented Abstraction of Rankine Cycle 
 
  - OutFiles(cycle, outfilename=None)
 

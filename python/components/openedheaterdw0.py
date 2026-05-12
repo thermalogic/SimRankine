@@ -27,7 +27,7 @@ from .port import *
 
 class OpenedheaterDw0:
 
-    energy = 'internel'
+    energy = 'internal'
     devtype = "FWH-OPEN-DW0"
 
     def __init__(self, dictDev):

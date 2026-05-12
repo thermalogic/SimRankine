@@ -28,7 +28,7 @@ class SimRankineCycle:
         self.cycle.simulator()
 
     def SpecifiedSimulator(self, SetPower=None, SetMass=None):
-        # Specified Simulating： Power or Mass Flow
+        # Specified Simulating: Power or Mass Flow
         self.cycle.SpecifiedSimulator(SetPower, SetMass)
 
         # output to files

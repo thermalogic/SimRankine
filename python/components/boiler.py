@@ -51,7 +51,7 @@ class Boiler:
 
     def balance(self):
         """ mass and energy balance of the boiler """
-        # mass blance equation
+        # mass balance equation
         if self.iPort[0].fdot is not None:
             self.oPort[0].fdot = self.iPort[0].fdot
         elif self.oPort[0].fdot is not None:

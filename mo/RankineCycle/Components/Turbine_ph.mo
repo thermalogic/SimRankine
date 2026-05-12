@@ -5,7 +5,7 @@ model Turbine_ph "Turbine"
   parameter Units.Pressure p_out;
   parameter Units.Efficiency ef;
   Units.SpecificEntropy inlet_s;
-  Units.WorkUnitMass w "worker";
+  Units.WorkUnitMass w "work";
   FluidPort.FluidPortInPH inlet annotation (Placement(transformation(extent={{-78,
             80},{-58,100}}), iconTransformation(extent={{-66,58},{-52,72}})));
   FluidPort.FluidPortOutPH outlet annotation (Placement(transformation(extent={{-52,

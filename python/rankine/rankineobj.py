@@ -29,7 +29,7 @@ class RankineCycle:
         dictcomps = dictcycle["components"]
         listconnectors = dictcycle["connectors"]
 
-        # 1 convert dict to the dict of device objects: {device name:device obiect}
+        # 1 convert dict to the dict of device objects: {device name:device object}
         self.DevNum = len(dictcomps)
         self.comps = {}
         for curdev in dictcomps:
@@ -58,7 +58,7 @@ class RankineCycle:
 
     def ComponentState(self):
         """ calculate the state of ports """
-        # the ports state oof devices
+        # the ports state of devices
         for key in self.comps:
             self.comps[key].state()
 
